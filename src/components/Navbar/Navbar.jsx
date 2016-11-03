@@ -156,6 +156,7 @@ export default class Navbar extends React.Component {
               >
 
             </AppBar >
+            
               <Drawer
                 docked={false}
                 width={300}

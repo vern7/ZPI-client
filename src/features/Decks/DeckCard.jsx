@@ -1,37 +1,29 @@
 import React from 'react';
-import {Card, CardHeader, CardTitle, CardText, RaisedButton, CardActions} from 'material-ui';
+import {Card, CardHeader, CardTitle, CardMedia, CardText, RaisedButton, CardActions} from 'material-ui';
 import {indigo500} from 'material-ui/styles/colors';
-
+import _ from 'lodash';
 
 const cardStyles = {
-  margin: '10px',
-  backgroundColor: indigo500,
+    margin: '10px',
 };
 
-const titleStyle = {
-  fontSize: '20px',
-  // fontFamily: '"Dancing Script", Georgia, Times, serif',
-  fontFamily: '"Roboto", sans-serif'
-
-};
 
 const DeckCard = ({name, description, creatorName, actionLabel, onAction}) => (
 
     <Card style={cardStyles} zDepth={5} >
-      <CardHeader titleColor="white" titleStyle={titleStyle}
-        title={name}
-        />
-      <CardText color="white">
-        {description}
-      </CardText>
+      <CardMedia
+        overlay={<CardTitle title={name} subtitle={description} />}
+      >
+        <img src={`images/deckImages/${_.random(1, 4, false)}.jpg`} />
+      </CardMedia>
       {creatorName?
-        <CardText color="white" >
+        <CardText >
           {`by ${creatorName}`}
         </CardText>
         :
         null}
         <CardActions>
-          <RaisedButton fullWidth label={actionLabel} onClick={onAction} />
+          <RaisedButton primary fullWidth label={actionLabel} onClick={onAction} />
         </CardActions>
       </Card>
 );

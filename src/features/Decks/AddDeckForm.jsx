@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextField, RaisedButton} from 'material-ui';
 import {Row,Col} from 'react-bootstrap';
+import {browserHistory} from 'react-router';
 
 export default class AddDeckForm extends React.Component {
     constructor () {
@@ -25,12 +26,12 @@ export default class AddDeckForm extends React.Component {
 
     submitForm () {
         if (!this.isValid()) return;
-        debugger;
         this.props.onSubmit(this.state);
         this.setState({
             name: '',
             description: ''
         });
+        browserHistory.push('/decks');
     }
 
 
