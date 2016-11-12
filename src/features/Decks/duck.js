@@ -2,6 +2,7 @@ import {getUserId} from '../../api/user';
 
 export const CREATE_DECK = 'CREATE_DECK';
 export const DELETE_DECK = 'DELETE_DECK';
+export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 
 export const createDeck = ({name, description}) => {
     const ownerId = getUserId();
@@ -15,6 +16,11 @@ export const createDeck = ({name, description}) => {
         }
     };
 };
+
+export const receiveDecks = (response) => ({
+    type: RECEIVE_DECKS,
+    response
+});
 
 export const deleteDeck = (deckId) => ({type: DELETE_DECK, deckId});
 

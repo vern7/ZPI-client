@@ -15,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    onDelete: (deckId) => dispatch(deleteDeck(deckId))
+    onDelete: (deckId) => dispatch(deleteDeck(deckId)),
+    onSynchronize: () => dispatch({type: 'SAVE_CARDS'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckView);
