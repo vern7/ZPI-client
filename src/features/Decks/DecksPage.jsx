@@ -2,8 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getUserId} from '../../api/user';
 import Decks from './Decks';
-import {fetchAllDecks} from '../../api/decks';
-import {receiveDecks} from './duck';
+import {loadDecks} from './actions';
 
 class DecksPage extends React.Component {
 
@@ -12,11 +11,12 @@ class DecksPage extends React.Component {
     }
 
     componentDidUpdate () {
-        this.fetchDecks();
+        // console.log('comp did update');
+        // this.fetchDecks();
     }
 
     fetchDecks () {
-        fetchAllDecks().then(decks => this.props.receiveDecks(decks));
+        this.props.loadDecks();
     }
 
     render () {
@@ -33,5 +33,4 @@ const mapStateToProps = state => ({
     otherDecks: state.decks.filter(deck => deck.ownerId !== getUserId())
 });
 
-// shorthand notation for map actions to props 
-export default connect(mapStateToProps, {receiveDecks})(DecksPage);
+export default connect(mapStateToProps, {loadDecks})(DecksPage);

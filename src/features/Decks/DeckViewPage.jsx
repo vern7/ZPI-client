@@ -1,9 +1,8 @@
 import DeckView from './DeckView';
 import {connect} from 'react-redux';
 import {getUserId} from '../../api/user';
-import {deleteDeck} from './duck';
+import {deleteDeck} from './actions';
 import _ from 'lodash';
-
 
 const mapStateToProps = (state, ownProps) => {
     const deck = _.find(state.decks, deck => deck._id == ownProps.params.deckId);
