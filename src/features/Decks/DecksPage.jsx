@@ -27,10 +27,11 @@ class DecksPage extends React.Component {
 }
 
 
-
+// @TODO use selectors
 const mapStateToProps = state => ({
-    myDecks: state.decks.filter(deck => deck.ownerId === getUserId()),
-    otherDecks: state.decks.filter(deck => deck.ownerId !== getUserId())
+    myDecks: state.decks.decks.filter(deck => deck.ownerId === getUserId()),
+    otherDecks: state.decks.decks.filter(deck => deck.ownerId !== getUserId()),
+    isFetching: state.decks.isFetching
 });
 
 export default connect(mapStateToProps, {loadDecks})(DecksPage);

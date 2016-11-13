@@ -2,10 +2,11 @@ import DeckView from './DeckView';
 import {connect} from 'react-redux';
 import {getUserId} from '../../api/user';
 import {deleteDeck} from './actions';
+import {saveCards} from '../Cards/actions';
 import _ from 'lodash';
 
 const mapStateToProps = (state, ownProps) => {
-    const deck = _.find(state.decks, deck => deck._id == ownProps.params.deckId);
+    const deck = _.find(state.decks.decks, deck => deck._id == ownProps.params.deckId);
     const isOwner = getUserId() === deck.ownerId;
     return {
         deck,
@@ -13,9 +14,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    onDelete: (deckId) => dispatch(deleteDeck(deckId)),
-    onSynchronize: () => dispatch({type: 'SAVE_CARDS'})
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeckView);
+export default connect(mapStateToProps, {onDelete: deleteDeck, onSynchronize: saveCards})(DeckView);
