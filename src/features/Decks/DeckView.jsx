@@ -5,41 +5,50 @@ import {indigo500} from 'material-ui/styles/colors';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import Synchro from 'material-ui/svg-icons/action/cached';
 import {FlatButton} from 'material-ui';
-import {browserHistory} from 'react-router';
+import Loader from '../../components/Loader';
+
+
+const headerStyle = {
+    marginLeft: '50px',
+    marginTop: '10px',
+    color: indigo500,
+    fontFamily: '"Roboto", sans-serif'
+};
+
+const deckNameStyle = {
+    fontFamily: '"Roboto", sans-serif',
+    color: indigo500,
+    textAlign: 'center',
+};
+
+const buttonStyle = {
+    margin: 12,
+};
+
+
 
 export default class DeckView extends React.Component {
 
     constructor () {
         super();
-        this.handleDelete = this.handleDelete.bind(this);
+        this.renderCardsTable = this.renderCardsTable.bind(this);
     }
 
-    handleDelete (e) {
-        console.log('handle delete deck');
-        browserHistory.push('/decks');
-        this.props.onDelete(this.props.deck._id);
+    renderCardsTable () {
+        if (this.props.isFetching) {
+            return <Loader />;
+        }
+        return (
+            <CardsTable
+                deckId={this.props.deck._id}
+                cards={this.props.deck.cards}
+                eraseable={this.props.isOwner}
+                isFetching={this.props.isFetching}
+            />
+        );
     }
-
 
     render () {
-        const headerStyle = {
-        marginLeft: '50px',
-        marginTop: '10px',
-        color: indigo500,
-        fontFamily: '"Roboto", sans-serif'
-
-        };
-
-        const deckNameStyle = {
-        fontFamily: '"Roboto", sans-serif',
-        color: indigo500,
-        textAlign: 'center',
-        };
-
-        const buttonStyle = {
-        margin: 12,
-        };
-
         return (
             <div>
                 <Row style={deckNameStyle}>
@@ -56,7 +65,7 @@ export default class DeckView extends React.Component {
                 {this.props.isOwner?
                     <FlatButton
                     label="delete deck"
-                    onClick={this.handleDelete}
+                    onClick={this.props.onDelete}
                     secondary={true}
                     style={buttonStyle}
                     icon={<DeleteIcon />}
@@ -86,11 +95,7 @@ export default class DeckView extends React.Component {
                     </h2>
                 </Row>
                 <Row style={{marginTop: '20px'}}>
-                    <CardsTable
-                        deckId={this.props.deck._id}
-                        cards={this.props.deck.cards}
-                        eraseable={this.props.isOwner}
-                    />
+                    {this.renderCardsTable()}
                 </Row>
 
             </div>

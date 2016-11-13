@@ -2,17 +2,18 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'material-ui';
 import CardTableRow from './CardTableRow';
-import {deleteCard} from './duck';
+import {deleteCard} from './actions';
+import Loader from '../../components/Loader';
 
 class CardsTable extends React.Component {
 
    renderCards () {
-       return this.props.cards.map((card) => (
-         <CardTableRow key={card._id} cardId={card._id}
-           deckId={this.props.deckId} word={card.word}
-           translation={card.translation} eraseable={this.props.eraseable}
-           onDelete={this.props.onDelete} />
-       ));
+      return this.props.cards.map((card) => (
+        <CardTableRow key={card._id} cardId={card._id}
+          deckId={this.props.deckId} word={card.word}
+          translation={card.translation} eraseable={this.props.eraseable}
+          onDelete={this.props.onDelete} />
+      ));
      }
 
   render() {
@@ -36,11 +37,11 @@ class CardsTable extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    cards: state.cards.filter(card => card.deckId === ownProps.deckId),
+    cards: state.card.cards.filter(card => card.deckId === ownProps.deckId),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onDelete: (cardId) => dispatch(deleteCard(cardId))
+    onDelete: (cardId) => dispatch(deleteCard(cardId))
 });
 
 
