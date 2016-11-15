@@ -23,4 +23,5 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const fetchAllDecks = () => delay(2000).then(() => fakeCollection.decks);
 
-export const fetchDeck = (deckId) => delay(2000).then(() => _.find(fakeCollection.decks, (deck) => deck._id === deckId));
+export const fetchDeck = (deckId) => delay(2000).then(() =>
+    _.find(fakeCollection.decks, (deck) => deck._id === deckId));

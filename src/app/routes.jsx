@@ -2,6 +2,7 @@ import React from 'react';
 import {Router, Route} from 'react-router';
 import App from '../App';
 import Home from '../components/Home';
+import LoginPage from '../features/Login/LoginPage';
 import {AddDeck, DecksPage, DeckViewPage} from '../features/Decks';
 
 export default (
@@ -11,6 +12,7 @@ export default (
             <Route path="addDeck" component={AddDeck} />
             <Route path="decks" component={DecksPage} />
             <Route path="deck/:deckId" component={DeckViewPage} />
+            <Route path="login" component={LoginPage} />
         </Route>
     </Router>
 );
