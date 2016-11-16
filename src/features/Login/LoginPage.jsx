@@ -9,6 +9,7 @@ import {login} from '../../api/login';
 
 const headerStyle = {
     fontFamily: '"Dancing Script", Georgia, Times, serif',
+    textAlign: 'center',
 };
 
 export default class LoginPage extends React.Component {
@@ -34,17 +35,11 @@ export default class LoginPage extends React.Component {
 
     // to extract from file
     loginRequest (username, password) {
-        const payload = {
-            username,
-            password
-        };
-
-        var data = new FormData();
-        data.append('json', JSON.stringify(payload));
-
-        fetch('http://zpi.herokuapp.com/api/login', {
+       
+        fetch(`http://zpi.herokuapp.com/callback?client_name=FormClient&username=filip&password=123`, {
             method: 'POST',
-            body: data
+            credentials: 'include',
+            
         })
             .then(res => res.json())
             .then((data) => {console.log(data);});
@@ -95,7 +90,7 @@ export default class LoginPage extends React.Component {
             <div style={{backgroundColor: 'white'}}>
                 <Col mdOffset={4} md={4}>
                     <div style={headerStyle}>
-                        <h1>Log in to Flash Learn</h1>
+                        <h1>Log in</h1>
                     </div>
                     <TextField
                         name="username"
@@ -120,7 +115,7 @@ export default class LoginPage extends React.Component {
                         <div style={{color: yellow700}}>
                         or
                         </div>
-                        <FlatButton label="Sign up" secondary onClick={() => browserHistory.push('signup')} />
+                        <FlatButton label="Sign up" secondary onClick={() => browserHistory.push('welcome/signup')} />
                     </div>
                 </Col>
             </div>

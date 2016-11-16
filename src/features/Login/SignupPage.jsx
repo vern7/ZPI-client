@@ -1,10 +1,8 @@
 import React from 'react';
 import {TextField, RaisedButton} from 'material-ui';
-import {deepOrange500} from 'material-ui/styles/colors';
 import {Col} from 'react-bootstrap';
 
 const headerStyle = {
-    color: deepOrange500,
     fontFamily: '"Dancing Script", Georgia, Times, serif',
 };
 
@@ -17,7 +15,6 @@ export default class SignupPage extends React.Component {
         this.registerRequest = this.registerRequest.bind(this);
 
         this.state = {
-            email: '',
             name: '',
             password: ''
         };
@@ -49,12 +46,11 @@ export default class SignupPage extends React.Component {
             password
         };
 
-        var data = new FormData();
-        data.append('json', JSON.stringify(payload));
+        // var data = new FormData();
+        // data.append('json', JSON.stringify(payload));
 
-        fetch('http://zpi.herokuapp.com/api/register', {
+        fetch(`http://zpi.herokuapp.com/api/register?username=${username}&password=${password}`, {
             method: 'POST',
-            body: data
         })
             .then((data) => {console.log(data)});
     }
@@ -68,7 +64,6 @@ export default class SignupPage extends React.Component {
         this.registerRequest(name, password);
 
         this.setState({
-            email: '',
             name: '',
             password: '',
         });
@@ -98,18 +93,6 @@ export default class SignupPage extends React.Component {
                     <div style={headerStyle}>
                         <h1>Join Flash Learn</h1>
                     </div>
-                    <TextField
-                        inputStyle={{color: 'black'}}
-                        name="email"
-                        floatingLabelText="Email"
-                        value={this.state.email}
-                        onChange={this.setValue.bind(this, 'email')}
-                        underlineFocusStyle={headerStyle}
-                        floatingLabelStyle={headerStyle}
-                        floatingLabelFocusStyle={headerStyle}
-                    />
-
-                    <br />
                     <TextField
                         inputStyle={{color: 'black'}}
                         name="name"
