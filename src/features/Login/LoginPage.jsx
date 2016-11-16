@@ -3,6 +3,9 @@ import {TextField, RaisedButton, FlatButton} from 'material-ui';
 import {yellow700} from 'material-ui/styles/colors';
 import {Col} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
+import {login} from '../../api/login';
+
+// const MOCK = true;
 
 const headerStyle = {
     fontFamily: '"Dancing Script", Georgia, Times, serif',
@@ -31,7 +34,6 @@ export default class LoginPage extends React.Component {
 
     // to extract from file
     loginRequest (username, password) {
-        debugger;
         const payload = {
             username,
             password
@@ -45,7 +47,7 @@ export default class LoginPage extends React.Component {
             body: data
         })
             .then(res => res.json())
-            .then((data) => {console.log(data)});
+            .then((data) => {console.log(data);});
     }
 
     submitForm (ev) {

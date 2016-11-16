@@ -1,4 +1,4 @@
-import {CREATE_DECK, DELETE_DECK, LOADED_DECKS, LOAD_DECKS} from './actions';
+import {CREATE_DECK, DELETE_DECK, LOADED_DECKS, LOAD_DECKS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from './actions';
 import _ from 'lodash';
 import {combineReducers} from 'redux';
 
@@ -14,6 +14,22 @@ export const decks = (state = [], action) => {
         }
         case LOADED_DECKS: {
             return _.union(state, action.decks);
+        }
+        case ADD_TO_FAVORITES: {
+            return state.map((deck) => {
+                if (deck._id === action.deckId) {
+                    return {...deck, favorite: true};
+                }
+                return deck;
+            })
+        }
+        case REMOVE_FROM_FAVORITES: {
+            return state.map((deck) => {
+                if (deck._id === action.deckId) {
+                    return {...deck, favorite: false};
+                }
+                return deck;
+            }) 
         }
         default:
             return state;

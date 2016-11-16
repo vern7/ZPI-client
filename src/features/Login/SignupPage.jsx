@@ -52,7 +52,7 @@ export default class SignupPage extends React.Component {
         var data = new FormData();
         data.append('json', JSON.stringify(payload));
 
-        fetch('http://www.zpi.herokuapp.com/api/register', {
+        fetch('http://zpi.herokuapp.com/api/register', {
             method: 'POST',
             body: data
         })
@@ -99,7 +99,7 @@ export default class SignupPage extends React.Component {
                         <h1>Join Flash Learn</h1>
                     </div>
                     <TextField
-                        inputStyle={{color: 'white'}}
+                        inputStyle={{color: 'black'}}
                         name="email"
                         floatingLabelText="Email"
                         value={this.state.email}
@@ -111,7 +111,7 @@ export default class SignupPage extends React.Component {
 
                     <br />
                     <TextField
-                        inputStyle={{color: 'white'}}
+                        inputStyle={{color: 'black'}}
                         name="name"
                         floatingLabelText="Username"
                         value={this.state.name}
@@ -121,7 +121,7 @@ export default class SignupPage extends React.Component {
                     />
                     <br />
                     <TextField
-                        inputStyle={{color: 'white'}}
+                        inputStyle={{color: 'black'}}
                         name="password"
                         floatingLabelText="Password"
                         type="password"

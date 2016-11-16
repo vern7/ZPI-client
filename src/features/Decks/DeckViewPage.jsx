@@ -1,9 +1,8 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 import DeckView from './DeckView';
 import {connect} from 'react-redux';
 import {getUserId} from '../../api/user';
-import {deleteDeck} from './actions';
+import {deleteDeck, addToFavorites, removeFromFavorites} from './actions';
 import {saveCards, loadCards} from '../Cards/actions';
 import _ from 'lodash';
 
@@ -20,17 +19,13 @@ class DeckViewPage extends React.Component {
     }
 }
 
-const onDelete = (deckId) => {
-    browserHistory.push('/decks');
-    deleteDeck(deckId);
-};
-
 const mapStateToProps = (state, ownProps) => {
     const deck = _.find(state.deck.decks, deck => deck._id == ownProps.params.deckId);
     const isOwner = getUserId() === deck.ownerId;
     return {
         deck,
         isOwner,
+        isFavorite: deck.favorite,
         isFetching: state.card.isFetching
     };
 };
@@ -38,7 +33,10 @@ const mapStateToProps = (state, ownProps) => {
 
 
 export default connect(mapStateToProps, {
-    onDelete,
+    onDelete: deleteDeck,
     onSynchronize: saveCards,
-    loadCards
+    onAddToFavorites: addToFavorites,
+    onRemoveFromFavorites: removeFromFavorites,
+    loadCards,
+
 })(DeckViewPage);
