@@ -24,9 +24,9 @@ class Decks extends React.Component {
        return <Loader />;
      }
       return this.props.myDecks.map((deck) => (
-          <Col key={deck._id} md={4}>
+          <Col key={deck._id.$oid} md={4}>
               <DeckCard key={deck._id} name={deck.name} creatorName={'Not Logged'} actionLabel={'Edit'}
-                description={deck.description} onAction={_.partial(this.buttonClicked, deck._id)} />
+                description={deck.description} onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
           </Col>
       ));
    }
@@ -36,9 +36,9 @@ class Decks extends React.Component {
        return <Loader />;
      }
      return this.props.otherDecks.map((deck) => (
-       <Col key={deck._id} md={4}>
+       <Col key={deck._id.$oid} md={4}>
          <DeckCard key={deck._id} name={deck.name} creatorName={'Not Logged'} actionLabel={'View'}
-           description={deck.description} onAction={_.partial(this.buttonClicked, deck._id)} />
+           description={deck.description} onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
        </Col>
      ));
    }

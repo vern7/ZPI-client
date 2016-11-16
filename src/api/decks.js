@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import delay from './utils/delay';
+import {USE_MOCKS} from './config';
 
 //fake API for developement 
 
@@ -22,7 +23,30 @@ const fakeCollection = {
     ]
 };
 
-export const fetchAllDecks = () => delay(2000).then(() => fakeCollection.decks);
+// API
 
-export const fetchDeck = (deckId) => delay(2000).then(() =>
+export const fetchAllDecksApi = () => {
+    return fetch(`https://zpi.herokuapp.com/api/decks`).then((res) => res.json());
+}   
+
+
+// MOCKS
+
+export const fetchAllMockedDecks = () => delay(1000).then(() => fakeCollection.decks);
+
+export const fetchMockedDeck = (deckId) => delay(2000).then(() =>
     _.find(fakeCollection.decks, (deck) => deck._id === deckId));
+
+export const fetchAllDecks = () => {
+    if (USE_MOCKS) {
+        return fetchAllMockedDecks();
+    }
+    return fetchAllDecksApi();
+} 
+
+export const fetchDeck = (deckId) => {
+    if (USE_MOCKS) {
+        return fetchMockedDeck(deckId);
+    }
+    console.log('no api');
+}

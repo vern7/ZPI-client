@@ -10,7 +10,7 @@ export const decks = (state = [], action) => {
             return newState;
         }
         case DELETE_DECK: {
-            return state.filter(deck => deck._id != action.deckId);
+            return state.filter(deck => deck._id !== action.deckId);
         }
         case LOADED_DECKS: {
             return _.union(state, action.decks);

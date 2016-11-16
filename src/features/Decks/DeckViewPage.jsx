@@ -20,7 +20,7 @@ class DeckViewPage extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const deck = _.find(state.deck.decks, deck => deck._id == ownProps.params.deckId);
+    const deck = _.find(state.deck.decks, deck => deck._id.$oid === ownProps.params.deckId);
     const isOwner = getUserId() === deck.ownerId;
     return {
         deck,
@@ -38,5 +38,4 @@ export default connect(mapStateToProps, {
     onAddToFavorites: addToFavorites,
     onRemoveFromFavorites: removeFromFavorites,
     loadCards,
-
 })(DeckViewPage);
