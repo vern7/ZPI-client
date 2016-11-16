@@ -13,10 +13,11 @@ export const createDeck = ({name, description}) => {
     return {
         type: CREATE_DECK,
         data: {
-            _id: Date.now(),
+            _id: {$oid: `${Date.now()}`},
             name,
             description,
             ownerId,
+            favorite: false,
         }
     };
 };
