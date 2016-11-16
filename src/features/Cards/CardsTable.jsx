@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'material-ui';
+import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody} from 'material-ui';
 import CardTableRow from './CardTableRow';
 import {deleteCard} from './actions';
-import Loader from '../../components/Loader';
 
 class CardsTable extends React.Component {
 

@@ -14,6 +14,7 @@ export default class SignupPage extends React.Component {
     constructor () {
         super();
         this.submitForm = this.submitForm.bind(this);
+        this.registerRequest = this.registerRequest.bind(this);
 
         this.state = {
             email: '',
@@ -24,7 +25,7 @@ export default class SignupPage extends React.Component {
 
     componentWillMount () {
         document.body.style.backgroundImage = 'url(/images/background2.jpg)';
-        document.body.style.backgroundSize = '100%'
+        document.body.style.backgroundSize = '100%';
         document.body.style.backgroundRepeat = 'no-repeat';
     }
     componentWillUnmount () {
@@ -41,14 +42,30 @@ export default class SignupPage extends React.Component {
         return true;
     }
 
+    registerRequest (username, password) {
+        debugger;
+        const payload = {
+            username,
+            password
+        };
+
+        var data = new FormData();
+        data.append('json', JSON.stringify(payload));
+
+        fetch('http://www.zpi.herokuapp.com/api/register', {
+            method: 'POST',
+            body: data
+        })
+            .then((data) => {console.log(data)});
+    }
+
     submitForm () {
         if (!this.isValid()) {
             return;
         }
 
         const {name, password} = this.state;
-
-        // register actions
+        this.registerRequest(name, password);
 
         this.setState({
             email: '',
@@ -114,7 +131,7 @@ export default class SignupPage extends React.Component {
                         floatingLabelFocusStyle={headerStyle}
                     />
                     <div style={{paddingTop: '30px'}}>
-                        <RaisedButton label="Sign up" secondary onClick={this.submitForm} />
+                        <RaisedButton label="Sign up" secondary onClick={this.submitForm}/>
                     </div>
                 </Col>
             </div>

@@ -2,9 +2,9 @@ import React from 'react';
 import {TextField, RaisedButton, FlatButton} from 'material-ui';
 import {yellow700} from 'material-ui/styles/colors';
 import {Col} from 'react-bootstrap';
+import {browserHistory} from 'react-router';
 
 const headerStyle = {
-    color: yellow700,
     fontFamily: '"Dancing Script", Georgia, Times, serif',
 };
 
@@ -12,6 +12,7 @@ export default class LoginPage extends React.Component {
     constructor () {
         super();
         this.submitForm = this.submitForm.bind(this);
+        this.loginRequest = this.loginRequest.bind(this);
         this.state = {
             username: '',
             password: ''
@@ -28,6 +29,25 @@ export default class LoginPage extends React.Component {
         return true;
     }
 
+    // to extract from file
+    loginRequest (username, password) {
+        debugger;
+        const payload = {
+            username,
+            password
+        };
+
+        var data = new FormData();
+        data.append('json', JSON.stringify(payload));
+
+        fetch('http://zpi.herokuapp.com/api/login', {
+            method: 'POST',
+            body: data
+        })
+            .then(res => res.json())
+            .then((data) => {console.log(data)});
+    }
+
     submitForm (ev) {
         ev.preventDefault();
         if (!this.isValid()) {
@@ -36,7 +56,7 @@ export default class LoginPage extends React.Component {
         const {username, password} = this.state;
         console.log(`login with: ${username} , ${password}`);
 
-    // login action
+        this.loginRequest(username, password);
 
         this.setState({
             username: '',
@@ -52,15 +72,17 @@ export default class LoginPage extends React.Component {
     }
 
     componentWillMount () {
+        // document.body.style.backgroundColor = '#FFFFFF';
         // ugly hacks
-        document.body.style.backgroundImage = 'url(/images/background1.jpg)';
-        document.body.style.backgroundSize = '100%';
-        document.body.style.backgroundRepeat = 'no-repeat';
+        // document.body.style.backgroundImage = 'url(/images/background1.jpg)';
+        // document.body.style.backgroundSize = '100%';
+        // document.body.style.backgroundRepeat = 'no-repeat';
 
     }
     componentWillUnmount () {
+        // document.body.style.backgroundColor = '#F5F5F5';
         // ugly hacks
-        document.body.style.backgroundImage = null;
+        // document.body.style.backgroundImage = null;
     }
 
 
@@ -68,13 +90,12 @@ export default class LoginPage extends React.Component {
 
 
         return (
-            <div>
+            <div style={{backgroundColor: 'white'}}>
                 <Col mdOffset={4} md={4}>
                     <div style={headerStyle}>
                         <h1>Log in to Flash Learn</h1>
                     </div>
                     <TextField
-                        inputStyle={{color: 'white'}}
                         name="username"
                         floatingLabelText="Username"
                         value={this.state.username}
@@ -83,7 +104,6 @@ export default class LoginPage extends React.Component {
                     />
                     <br />
                     <TextField
-                        inputStyle={{color: 'white'}}
                         name="password"
                         floatingLabelText="Password"
                         type="password"
@@ -98,7 +118,7 @@ export default class LoginPage extends React.Component {
                         <div style={{color: yellow700}}>
                         or
                         </div>
-                        <FlatButton label="Sign up" secondary linkButton href={'/signup'} />
+                        <FlatButton label="Sign up" secondary onClick={() => browserHistory.push('signup')} />
                     </div>
                 </Col>
             </div>
