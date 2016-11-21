@@ -5,8 +5,6 @@ import {Col} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
 import {login} from '../../api/login';
 
-// const MOCK = true;
-
 const headerStyle = {
     fontFamily: '"Dancing Script", Georgia, Times, serif',
     textAlign: 'center',
@@ -36,13 +34,12 @@ export default class LoginPage extends React.Component {
     // to extract from file
     loginRequest (username, password) {
        
-        fetch(`http://zpi.herokuapp.com/callback?client_name=FormClient&username=filip&password=123`, {
+        fetch(`http://zpi.herokuapp.com/callback?client_name=FormClient&username=${username}&password=${password}`, {
             method: 'POST',
             credentials: 'include',
-            
         })
-            .then(res => res.json())
-            .then((data) => {console.log(data);});
+        .then(res => res.json())
+        .then((data) => {console.log(data);});
     }
 
     submitForm (ev) {
