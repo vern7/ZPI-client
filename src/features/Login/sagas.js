@@ -5,8 +5,10 @@ import {login as loginWithApi} from '../../api/user';
 
 
 export function* logIn (action) {
+    debugger;
     const {username, password} = action;
-    const user = yield call(loginWithApi, username, password);
+    const {user} = yield call(loginWithApi, username, password);
+    debugger;
     yield put(loggedIn(user)); 
 }
 
