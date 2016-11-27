@@ -24,11 +24,6 @@
     "css-loader": "0.25.0",
     "detect-port": "1.0.1",
     "dotenv": "2.0.0",
-    "eslint-config-react-app": "^0.3.0",
-    "eslint-loader": "1.6.0",
-    "eslint-plugin-flowtype": "2.21.0",
-    "eslint-plugin-import": "2.0.1",
-    "eslint-plugin-jsx-a11y": "2.2.3",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
     "filesize": "3.3.0",
@@ -55,6 +50,8 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "eslint-config-vazco": "^2.2.0",
+    "eslint-plugin-vazco": "^1.0.0",
     "material-ui": "^0.16.1",
     "node-uuid": "^1.4.7",
     "react": "^15.3.2",

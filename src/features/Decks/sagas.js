@@ -1,7 +1,7 @@
 import {delay, throttle, takeEvery} from 'redux-saga';
 import {call, put} from 'redux-saga/effects';
 import {fetchAllDecks, createDeck as createDeckApi, } from '../../api/decks';
-import {CREATE_DECK, LOAD_DECKS, loadedDecks, createdDeck} from './actions';
+import {CREATE_DECK, LOAD_DECKS, DELETE_DECK, loadedDecks, createdDeck} from './actions';
 
 // to delete
 export function* helloSaga () {

@@ -4,7 +4,6 @@ import {LOAD_CARDS, loadedCards} from './actions';
 import {fetchCards} from '../../api/cards';
 
 export function* save () {
-    // fetchCards(1).then(res => console.log(res));
     yield call(delay, 2000);
     console.log('save');
 }
