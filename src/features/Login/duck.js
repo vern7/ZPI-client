@@ -1,6 +1,6 @@
 import {LOG_IN, LOGGED_IN} from './actions';
 
-export const userReducer = (state = {}, action) => {
+export const userReducer = (state = {profile: {username: 'anonymous'}}, action) => {
     switch (action.type) {
         case LOG_IN: {
             return {...state, isLoggingIn: true};

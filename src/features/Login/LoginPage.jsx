@@ -60,21 +60,6 @@ class LoginPage extends React.Component {
         this.setState(object);
     }
 
-    componentWillMount () {
-        // document.body.style.backgroundColor = '#FFFFFF';
-        // ugly hacks
-        // document.body.style.backgroundImage = 'url(/images/background1.jpg)';
-        // document.body.style.backgroundSize = '100%';
-        // document.body.style.backgroundRepeat = 'no-repeat';
-
-    }
-    componentWillUnmount () {
-        // document.body.style.backgroundColor = '#F5F5F5';
-        // ugly hacks
-        // document.body.style.backgroundImage = null;
-    }
-
-
     render () {
 
 
@@ -109,6 +94,7 @@ class LoginPage extends React.Component {
                         </div>
                         <FlatButton label="Sign up" secondary onClick={() => browserHistory.push('welcome/signup')} />
                     </div>
+                    {this.props.isLoggingIn ? 'Wait...' : ''}
                 </Col>
             </div>
 
@@ -117,4 +103,8 @@ class LoginPage extends React.Component {
     }
 }
 
-export default connect(null, {logIn})(LoginPage);
+const mapStateToProps = state => ({
+    isLoggingIn: state.user.isLoggingIn,
+});
+
+export default connect(mapStateToProps, {logIn})(LoginPage);

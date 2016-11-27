@@ -40,7 +40,6 @@ export default class SignupPage extends React.Component {
     }
 
     registerRequest (username, password) {
-        debugger;
         const payload = {
             username,
             password

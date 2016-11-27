@@ -97,12 +97,6 @@ export default class Navbar extends React.Component {
    }
 
     render () {
-      const loggedUser = {
-          username: 'not logged',
-          emails : [
-            {address: 'no email address'}
-          ]
-      };
 
 
         const userNameStyle = {
@@ -167,8 +161,7 @@ export default class Navbar extends React.Component {
               >
                 <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}><span style={draweTitleStyle}>Flash Learn</span></MenuItem>
                 <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}> <Avatar style={avatarStyle} size={200} src={'/images/defaultAvatar.jpg'} /> </MenuItem>
-                <MenuItem style={userNameStyle} disabled={true}>{loggedUser.username}</MenuItem>
-                <MenuItem style={userNameStyle} disabled={true}>{loggedUser.emails[0].address}</MenuItem>
+                <MenuItem style={userNameStyle} disabled={true}>{this.props.username}</MenuItem>
                 <Divider style={{marginBottom: '50px', marginTop:'10px'}}/>
                 <MenuItem onClick={this.goToHomePage} primaryText="My profile" leftIcon={<AccountBox />} />
                 <MenuItem onClick={this.goToAddDeck} primaryText="Add deck" leftIcon={<AddBundleIcon />} />
