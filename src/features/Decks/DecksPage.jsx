@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getUserId} from '../../api/user';
 import Decks from './Decks';
 import {loadDecks} from './actions';
 

@@ -1,25 +1,22 @@
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import Snackbar from 'material-ui/Snackbar';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import FlatButton from 'material-ui/FlatButton';
-import Drawer from 'material-ui/Drawer';
-import Avatar from 'material-ui/Avatar';
-import Divider from 'material-ui/Divider';
-import AddBundleIcon from 'material-ui/svg-icons/action/note-add';
-import ViewBundlesIcon from 'material-ui/svg-icons/action/view-module';
+import {
+    AppBar,
+    MenuItem,
+    IconButton,
+    Snackbar,
+    MenuIcon,
+    FlatButton,
+    Drawer,
+    Avatar,
+    Divider,
+    AddBundleIcon,
+    ViewBundlesIcon} from 'material-ui';
 import AccountBox from 'material-ui/svg-icons/action/account-box';
 import Learn from 'material-ui/svg-icons/social/school';
 import Create from 'material-ui/svg-icons/content/create';
 import {browserHistory} from 'react-router';
 
-
 import './styles.css';
-
-
-
 
 export default class Navbar extends React.Component {
 
@@ -63,7 +60,7 @@ export default class Navbar extends React.Component {
     }
 
     handleLogout () {
-        console.log('handleLogout');
+        this.props.logOut();
     }
 
     handleOpenMenu (event) {

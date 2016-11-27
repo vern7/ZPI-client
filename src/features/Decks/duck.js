@@ -1,11 +1,11 @@
-import {CREATE_DECK, DELETE_DECK, LOADED_DECKS, LOAD_DECKS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from './actions';
+import {CREATED_DECK, DELETE_DECK, LOADED_DECKS, LOAD_DECKS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from './actions';
 import _ from 'lodash';
 import {combineReducers} from 'redux';
 
 
 export const decks = (state = [], action) => {
     switch (action.type) {
-        case CREATE_DECK: {
+        case CREATED_DECK: {
             const newState = [...state, action.data];
             return newState;
         }

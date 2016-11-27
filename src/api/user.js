@@ -5,5 +5,9 @@ export const login = (username, password) => {
                 method: 'POST',
                 credentials: 'include',
             })
-            .then(res => res.json())
+        .then(res => res.json());
 };
+
+export const logout = () => {
+    return fetch('https://zpi.herokuapp.com/logout');
+}

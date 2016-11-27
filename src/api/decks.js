@@ -27,7 +27,20 @@ const fakeCollection = {
 
 export const fetchAllDecksApi = () => {
     return fetch(`https://zpi.herokuapp.com/api/decks`).then((res) => res.json());
-}   
+}
+
+export const createDeck = (name, description, ownerId) => {
+    const data = new FormData();
+    const deck = {name, description, ownerId};
+    data.append('json', JSON.stringify(deck));
+
+    return fetch(`//zpi.herokuapp.com/api/deck/create`, {method: 'POST', body: data})
+        .then(res => res.json());
+}
+
+export const deleteDeck = (deckId) => {
+    return fetch(`//zpi.herokuapp.com/api/deck/${deckId}/delete`);
+}
 
 
 // MOCKS
