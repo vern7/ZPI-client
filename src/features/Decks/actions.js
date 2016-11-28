@@ -12,11 +12,10 @@ export const REMOVE_FROM_FAVORITES = 'REMOVE_FROM_FAVORITES';
 export const createDeck = ({name, description, ownerId}) => {
     return {
         type: CREATE_DECK,
-        data: {
+        deck: {
             name,
             description,
             ownerId,
-            favorite: false,
         }
     };
 };

@@ -4,13 +4,13 @@ import {
     MenuItem,
     IconButton,
     Snackbar,
-    MenuIcon,
     FlatButton,
     Drawer,
     Avatar,
-    Divider,
-    AddBundleIcon,
-    ViewBundlesIcon} from 'material-ui';
+    Divider} from 'material-ui';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu'; 
+import AddBundleIcon from 'material-ui/svg-icons/action/note-add'; 
+import ViewBundlesIcon from 'material-ui/svg-icons/action/view-module'; 
 import AccountBox from 'material-ui/svg-icons/action/account-box';
 import Learn from 'material-ui/svg-icons/social/school';
 import Create from 'material-ui/svg-icons/content/create';

@@ -1,6 +1,6 @@
 import {delay, throttle, takeEvery} from 'redux-saga';
 import {call, put} from 'redux-saga/effects';
-import {fetchAllDecks, createDeck as createDeckApi, } from '../../api/decks';
+import {fetchAllDecks, createDeck as createDeckApi} from '../../api/decks';
 import {CREATE_DECK, LOAD_DECKS, DELETE_DECK, loadedDecks, createdDeck} from './actions';
 
 // to delete
@@ -15,7 +15,8 @@ export function* loadDecks () {
 }
 
 export function* createDeck (action) {
-    const {name, description, ownerId} = action;
+    const {name, description, ownerId} = action.deck;
+    debugger;
     const deck = yield call(createDeckApi, name, description, ownerId);
     // @TODO check what createDeckApi returns
     debugger;
@@ -41,5 +42,5 @@ export function* watchDeleteDeck () {
 }
 
 
-const deckSagas = [helloSaga, watchLoadDecks];
+const deckSagas = [helloSaga, watchLoadDecks, watchCreateDeck, watchDeleteDeck];
 export default deckSagas;

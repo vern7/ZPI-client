@@ -6,5 +6,9 @@ const mapDispatchToProps = dispatch => ({
     onSubmit: (doc) => dispatch(createDeck(doc))
 });
 
+const mapStateToProps = state => ({
+    userId: state.user.profile.userId,
+});
 
-export default connect(null, mapDispatchToProps)(AddDeckForm);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeckForm);

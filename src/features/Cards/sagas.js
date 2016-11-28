@@ -5,6 +5,7 @@ import {fetchCards} from '../../api/cards';
 
 export function* save () {
     yield call(delay, 2000);
+    //@TODO integrate with api
     console.log('save');
 }
 

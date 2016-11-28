@@ -26,7 +26,7 @@ export default class AddDeckForm extends React.Component {
 
     submitForm () {
         if (!this.isValid()) return;
-        this.props.onSubmit(this.state);
+        this.props.onSubmit({...this.state, ownerId: this.props.userId});
         this.setState({
             name: '',
             description: ''
