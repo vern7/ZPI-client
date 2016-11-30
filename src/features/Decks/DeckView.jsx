@@ -71,15 +71,15 @@ export default class DeckView extends React.Component {
 
     deleteDeck = () => {
         browserHistory.push('/decks');
-        this.props.onDelete(this.props.deck._id);
+        this.props.onDelete(this.props.deck._id.$oid);
     }
 
     removeFromFavorites = () => {
-        this.props.onRemoveFromFavorites(this.props.deck._id);
+        this.props.onRemoveFromFavorites(this.props.deck._id.$oid);
     }
 
     addToFavorites = () => {
-        this.props.onAddToFavorites(this.props.deck._id);
+        this.props.onAddToFavorites(this.props.deck._id.$oid);
     }
 
     

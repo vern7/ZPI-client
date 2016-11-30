@@ -10,14 +10,14 @@ export const decks = (state = [], action) => {
             return newState;
         }
         case DELETE_DECK: {
-            return state.filter(deck => deck._id !== action.deckId);
+            return state.filter(deck => deck._id.$oid !== action.deckId);
         }
         case LOADED_DECKS: {
             return action.decks;
         }
         case ADD_TO_FAVORITES: {
             return state.map((deck) => {
-                if (deck._id === action.deckId) {
+                if (deck._id.$oid === action.deckId) {
                     return {...deck, favorite: true};
                 }
                 return deck;
@@ -25,7 +25,7 @@ export const decks = (state = [], action) => {
         }
         case REMOVE_FROM_FAVORITES: {
             return state.map((deck) => {
-                if (deck._id === action.deckId) {
+                if (deck._id.$oid === action.deckId) {
                     return {...deck, favorite: false};
                 }
                 return deck;

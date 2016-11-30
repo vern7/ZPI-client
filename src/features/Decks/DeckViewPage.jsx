@@ -21,7 +21,7 @@ class DeckViewPage extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     const deck = _.find(state.deck.decks, deck => deck._id.$oid === ownProps.params.deckId);
-    const isOwner = getUserId() === deck.ownerId;
+    const isOwner = state.user.profile.userId === deck.ownerId;
     return {
         deck,
         isOwner,

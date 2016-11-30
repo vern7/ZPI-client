@@ -41,7 +41,11 @@ export const createDeck = (deck) => {
 }    
 
 export const deleteDeck = (deckId) => {
-    return fetch(`//zpi.herokuapp.com/api/deck/${deckId}/delete`);
+    debugger;
+    return fetch(`https://zpi.herokuapp.com/api/decks/${deckId}/delete`, {
+        method: 'DELETE',
+        credentials: 'include',
+    });
 }
 
 
