@@ -15,12 +15,14 @@ export function* loadDecks () {
 }
 
 export function* createDeck (action) {
-    const {name, description, ownerId} = action.deck;
-    debugger;
-    const deck = yield call(createDeckApi, name, description, ownerId);
-    // @TODO check what createDeckApi returns
-    debugger;
-    yield put(createdDeck(deck));
+    const deckId = yield call(createDeckApi, action.deck);
+    const newDeck = {
+        id: {
+            $oid: deckId
+        },
+        ...action.deck
+    };
+    yield put(createdDeck(newDeck));
 }
 
 export function* deleteDeck (action) {

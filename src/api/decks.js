@@ -29,14 +29,16 @@ export const fetchAllDecksApi = () => {
     return fetch(`https://zpi.herokuapp.com/api/decks`).then((res) => res.json());
 }
 
-export const createDeck = (name, description, ownerId) => {
+export const createDeck = (deck) => {
+    deck = {...deck, difficulty: 4}; //TODO difficulty set in create deck form
+    const body = JSON.stringify(deck);
     debugger;
-    const data = new FormData();
-    const deck = {name, description, ownerId, favorite: false, difficulty: 4};
-    data.append('json', JSON.stringify(deck));
-
-    return fetch(`https://zpi.herokuapp.com/api/decks/create`, {method: 'POST', credentials: 'include', body: data})
-}
+    return fetch(`https://zpi.herokuapp.com/api/decks/create`, {
+        method: 'POST',
+        credentials: 'include',
+        body
+    });
+}    
 
 export const deleteDeck = (deckId) => {
     return fetch(`//zpi.herokuapp.com/api/deck/${deckId}/delete`);

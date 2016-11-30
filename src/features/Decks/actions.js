@@ -1,5 +1,3 @@
-import {getUserId} from '../../api/user';
-
 export const CREATE_DECK = 'CREATE_DECK';
 export const CREATED_DECK = 'CREATED_DECK';
 export const DELETE_DECK = 'DELETE_DECK';
@@ -10,6 +8,7 @@ export const REMOVE_FROM_FAVORITES = 'REMOVE_FROM_FAVORITES';
 
 
 export const createDeck = ({name, description, ownerId}) => {
+    debugger;
     return {
         type: CREATE_DECK,
         deck: {

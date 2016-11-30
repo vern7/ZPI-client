@@ -6,14 +6,14 @@ import {combineReducers} from 'redux';
 export const decks = (state = [], action) => {
     switch (action.type) {
         case CREATED_DECK: {
-            const newState = [...state, action.data];
+            const newState = [...state, action.deck];
             return newState;
         }
         case DELETE_DECK: {
             return state.filter(deck => deck._id !== action.deckId);
         }
         case LOADED_DECKS: {
-            return _.union(state, action.decks);
+            return action.decks;
         }
         case ADD_TO_FAVORITES: {
             return state.map((deck) => {
