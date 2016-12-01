@@ -8,7 +8,6 @@ export const REMOVE_FROM_FAVORITES = 'REMOVE_FROM_FAVORITES';
 
 
 export const createDeck = ({name, description, ownerId}) => {
-    debugger;
     return {
         type: CREATE_DECK,
         deck: {

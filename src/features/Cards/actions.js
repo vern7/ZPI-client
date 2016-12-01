@@ -5,7 +5,7 @@ export const LOAD_CARDS = 'LOAD_CARDS';
 export const LOADED_CARDS = 'LOADED_CARDS';
 
 // @TODO add argument
-export const saveCards = () => ({type: SAVE_CARDS});
+export const saveCards = (cards) => ({type: SAVE_CARDS, cards});
 
 export const addCard = ({word, translation, deckId}) => {
     return {
@@ -14,7 +14,7 @@ export const addCard = ({word, translation, deckId}) => {
             _id: Date.now(),
             word,
             translation,
-            deckId,
+            deckId: deckId.$oid,
         }
     };
 };

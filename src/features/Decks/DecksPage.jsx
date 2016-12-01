@@ -19,8 +19,9 @@ class DecksPage extends React.Component {
 
 // @TODO use selectors
 const mapStateToProps = state => ({
-    myDecks: state.deck.decks.filter(deck => deck.ownerId === state.user.profile.userId),
-    otherDecks: state.deck.decks.filter(deck => deck.ownerId !== state.user.profile.userId),
+    myDecks: state.deck.decks.filter(deck => deck.ownerId === state.user.profile.userId && !deck.favorite),
+    otherDecks: state.deck.decks.filter(deck => deck.ownerId !== state.user.profile.userId && !deck.favorite),
+    favoriteDecks: state.deck.decks.filter(deck => deck.favorite),
     isFetching: state.deck.isFetching,
 });
 

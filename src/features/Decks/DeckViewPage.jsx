@@ -1,7 +1,6 @@
 import React from 'react';
 import DeckView from './DeckView';
 import {connect} from 'react-redux';
-import {getUserId} from '../../api/user';
 import {deleteDeck, addToFavorites, removeFromFavorites} from './actions';
 import {saveCards, loadCards} from '../Cards/actions';
 import _ from 'lodash';
@@ -22,8 +21,10 @@ class DeckViewPage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     const deck = _.find(state.deck.decks, deck => deck._id.$oid === ownProps.params.deckId);
     const isOwner = state.user.profile.userId === deck.ownerId;
+    const cards = state.card.cards.filter(card => card.deckId === ownProps.params.deckId);
     return {
         deck,
+        cards,
         isOwner,
         isFavorite: deck.favorite,
         isFetching: state.card.isFetching

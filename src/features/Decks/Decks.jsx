@@ -6,6 +6,7 @@ import {browserHistory} from 'react-router';
 import _ from 'lodash';
 import DeckCard from './DeckCard';
 import Loader from '../../components/Loader';
+// import Synchro from 'material-ui/svg-icons/action/cached';
 
 class Decks extends React.Component {
 
@@ -31,11 +32,11 @@ class Decks extends React.Component {
       ));
    }
 
-   renderOtherDecks() {
+   renderOtherDecks(decks) {
      if (this.props.isFetching) {
        return <Loader />;
      }
-     return this.props.otherDecks.map((deck) => (
+     return decks.map((deck) => (
        <Col key={deck._id.$oid} md={4}>
          <DeckCard key={deck._id} name={deck.name} creatorName={'Not Logged'} actionLabel={'View'}
            description={deck.description} onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
@@ -57,6 +58,26 @@ class Decks extends React.Component {
     return (
       <div>
         <Row>
+          <Col md={7}>
+            <h1 style={headerStyle}>
+              Favorites
+            </h1>
+          </Col>
+
+          <Col md={5}>
+            <TextField
+              hintText="Search"
+            />
+          </Col>
+        </Row>
+        <Row>
+          {this.renderOtherDecks(this.props.favoriteDecks)}
+        </Row>
+        
+        <Row style={{marginTop: '50px'}}>
+          <Divider />
+        </Row>
+        <Row>
           <h1 style={headerStyle}>
             My decks
           </h1>
@@ -67,6 +88,7 @@ class Decks extends React.Component {
         <Row style={{marginTop: '50px'}}>
           <Divider />
         </Row>
+        
         <Row>
           <Col md={7}>
             <h1 style={headerStyle}>
@@ -82,7 +104,7 @@ class Decks extends React.Component {
           
         </Row>
         <Row>
-          {this.renderOtherDecks()}
+          {this.renderOtherDecks(this.props.otherDecks)}
         </Row>
       </div>
 

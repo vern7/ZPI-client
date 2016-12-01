@@ -5,6 +5,8 @@ import {Col} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {logIn} from './actions';
+import Loader from '../../components/Loader';
+
 
 const headerStyle = {
     fontFamily: '"Dancing Script", Georgia, Times, serif',
@@ -94,7 +96,7 @@ class LoginPage extends React.Component {
                         </div>
                         <FlatButton label="Sign up" secondary onClick={() => browserHistory.push('welcome/signup')} />
                     </div>
-                    {this.props.isLoggingIn ? 'Wait...' : ''}
+                    {this.props.isLoggingIn ? <Loader /> : null}
                 </Col>
             </div>
 

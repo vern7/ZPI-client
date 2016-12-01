@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextField, RaisedButton} from 'material-ui';
 import {Col} from 'react-bootstrap';
+import {browserHistory} from 'react-router';
 
 const headerStyle = {
     fontFamily: '"Dancing Script", Georgia, Times, serif',
@@ -45,13 +46,13 @@ export default class SignupPage extends React.Component {
             password
         };
 
-        // var data = new FormData();
-        // data.append('json', JSON.stringify(payload));
-
         fetch(`http://zpi.herokuapp.com/api/register?username=${username}&password=${password}`, {
             method: 'POST',
         })
             .then((data) => {console.log(data)});
+
+        browserHistory.push('/welcome/login');
+        
     }
 
     submitForm () {

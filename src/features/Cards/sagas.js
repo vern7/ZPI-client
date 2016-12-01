@@ -1,12 +1,10 @@
 import {delay, takeEvery} from 'redux-saga';
 import {call, put} from 'redux-saga/effects';
 import {LOAD_CARDS, loadedCards} from './actions';
-import {fetchCards} from '../../api/cards';
+import {fetchCards, saveCards} from '../../api/cards';
 
-export function* save () {
-    yield call(delay, 2000);
-    //@TODO integrate with api
-    console.log('save');
+export function* save (action) {
+    yield call(saveCards, action.cards);
 }
 
 export function* loadCards (action) {
@@ -14,7 +12,6 @@ export function* loadCards (action) {
     const cards = yield call(fetchCards, deckId);
     console.log(deckId);
     console.log(cards);
-    yield call(delay, 1000);
     yield put(loadedCards(cards));
 }
 

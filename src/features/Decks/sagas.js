@@ -1,7 +1,12 @@
 import {delay, throttle, takeEvery} from 'redux-saga';
 import {call, put} from 'redux-saga/effects';
-import {fetchAllDecks, createDeck as createDeckApi, deleteDeck as deleteDeckApi} from '../../api/decks';
-import {CREATE_DECK, LOAD_DECKS, DELETE_DECK, loadedDecks, createdDeck} from './actions';
+import {
+    fetchAllDecksApi,
+    createDeck as createDeckApi,
+    addToFavorites as addToFavoritesApi,
+    removeFromFavorites as removeFromFavoritesApi,
+    deleteDeck as deleteDeckApi} from '../../api/decks';
+import {CREATE_DECK, LOAD_DECKS, DELETE_DECK, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, loadedDecks, createdDeck} from './actions';
 
 // to delete
 export function* helloSaga () {
@@ -10,7 +15,7 @@ export function* helloSaga () {
 }
 
 export function* loadDecks () {
-    const decks = yield call(fetchAllDecks);
+    const decks = yield call(fetchAllDecksApi);
     yield put(loadedDecks(decks));
 }
 
@@ -26,10 +31,16 @@ export function* createDeck (action) {
 }
 
 export function* deleteDeck (action) {
-    debugger;
     const {deckId} = action;
     const response = yield call(deleteDeckApi, deckId);
-    debugger;
+}
+
+export function* addToFavorites (action) {
+    yield call(addToFavoritesApi, action.deckId);
+}
+
+export function* removeFromFavorites (action) {
+    yield call(removeFromFavoritesApi, action.deckId);
 }
 
 export function* watchLoadDecks () {
@@ -44,6 +55,13 @@ export function* watchDeleteDeck () {
     yield* throttle(1000, DELETE_DECK, deleteDeck);
 }
 
+export function* watchAddToFavorites () {
+    yield* takeEvery(ADD_TO_FAVORITES, addToFavorites);
+}
 
-const deckSagas = [helloSaga, watchLoadDecks, watchCreateDeck, watchDeleteDeck];
+export function* watchRemoveFromFavorites () {
+    yield* takeEvery(REMOVE_FROM_FAVORITES, removeFromFavorites);
+}
+
+const deckSagas = [helloSaga, watchLoadDecks, watchCreateDeck, watchDeleteDeck, watchAddToFavorites, watchRemoveFromFavorites];
 export default deckSagas;

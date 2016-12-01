@@ -31,12 +31,6 @@ const buttonStyle = {
 
 export default class DeckView extends React.Component {
 
-    // constructor(props) {
-    //     super(props);
-        
-    //     this.props.onRemoveFromFavorites.bind(null, props.deck._id);
-    //     this.props.onAddToFavorites.bind(null, props.deck._id);
-    // }
 
     renderCardsTable = () => {
         if (this.props.isFetching) {
@@ -82,6 +76,9 @@ export default class DeckView extends React.Component {
         this.props.onAddToFavorites(this.props.deck._id.$oid);
     }
 
+    synchronize = () => {
+        this.props.onSynchronize(this.props.cards);
+    }
     
 
     render () {
@@ -91,23 +88,25 @@ export default class DeckView extends React.Component {
                 <h1 >
                     {this.props.deck.name}
                 </h1>
-                <FlatButton
-                    label="save"
-                    primary={true}
-                    style={buttonStyle}
-                    icon={<Synchro />}
-                    onClick={this.props.onSynchronize}
-                />
+                {this.props.isOwner? 
+                    <FlatButton
+                        label="save"
+                        primary={true}
+                        style={buttonStyle}
+                        icon={<Synchro />}
+                        onClick={this.synchronize}
+                    />    
+                :null}
 
                 {this.renderFavoriteButton()}
 
                 {this.props.isOwner?
                     <FlatButton
-                    label="delete deck"
-                    onClick={this.deleteDeck}
-                    secondary={true}
-                    style={buttonStyle}
-                    icon={<DeleteIcon />}
+                        label="delete deck"
+                        onClick={this.deleteDeck}
+                        secondary={true}
+                        style={buttonStyle}
+                        icon={<DeleteIcon />}
                     />
                 : null}
                 

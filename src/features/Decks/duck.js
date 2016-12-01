@@ -13,7 +13,7 @@ export const decks = (state = [], action) => {
             return state.filter(deck => deck._id.$oid !== action.deckId);
         }
         case LOADED_DECKS: {
-            return action.decks;
+            return _.merge(action.decks, state);
         }
         case ADD_TO_FAVORITES: {
             return state.map((deck) => {

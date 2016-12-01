@@ -9,7 +9,6 @@ export const userReducer = (state = {profile: {username: 'anonymous'}}, action) 
             return {profile: action.user, isLoggingIn: false}
         }
         case LOGGED_OUT: {
-            debugger;
             return {profile: {username: 'anonymous'}};
         }
         default: 

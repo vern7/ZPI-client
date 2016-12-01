@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextField, RaisedButton} from 'material-ui';
+import {TextField, RaisedButton, Slider} from 'material-ui';
 import {Row,Col} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
 
@@ -10,7 +10,8 @@ export default class AddDeckForm extends React.Component {
 
         this.state = {
             name: '',
-            description: ''
+            description: '',
+            difficulty: '',
         };
     }
 
@@ -29,7 +30,8 @@ export default class AddDeckForm extends React.Component {
         this.props.onSubmit({...this.state, ownerId: this.props.userId});
         this.setState({
             name: '',
-            description: ''
+            description: '',
+            difficulty: ''
         });
         browserHistory.push('/decks');
     }
@@ -63,6 +65,15 @@ export default class AddDeckForm extends React.Component {
                         multiLine
                         value={this.state.description}
                         onChange={this.setValue.bind(this, 'description')}
+                    />
+                    <div style={{marginTop: '30px', fontFamily: '"Roboto", sans-serif'}}>
+                        Difficulty 
+                    </div>
+                    <Slider 
+                        name="difficulty"
+                        step={0.2}
+                        value={0.4}
+                        onChange={this.setValue.bind(this, 'difficulty')}
                     />
                     <div style={{paddingTop: '30px'}}>
                         <RaisedButton label="Create deck" fullWidth secondary onClick={this.submitForm} />

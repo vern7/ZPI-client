@@ -32,21 +32,37 @@ export const fetchAllDecksApi = () => {
 export const createDeck = (deck) => {
     deck = {...deck, difficulty: 4}; //TODO difficulty set in create deck form
     const body = JSON.stringify(deck);
-    debugger;
     return fetch(`https://zpi.herokuapp.com/api/decks/create`, {
         method: 'POST',
         credentials: 'include',
         body
     });
-}    
+};   
 
 export const deleteDeck = (deckId) => {
-    debugger;
     return fetch(`https://zpi.herokuapp.com/api/decks/${deckId}/delete`, {
-        method: 'DELETE',
+        method: 'POST',
         credentials: 'include',
+    }); 
+};
+
+export const addToFavorites = (deckId) => {
+    const body = JSON.stringify({deckId});
+    return fetch(`https://zpi.herokuapp.com/api/favorite/add`, {
+        method: 'POST',
+        credentials: 'include',
+        body
     });
-}
+};
+
+export const removeFromFavorites = (deckId) => {
+    const body = JSON.stringify({deckId});
+    return fetch(`https://zpi.herokuapp.com/api/favorite/remove`, {
+        method: 'POST',
+        credentials: 'include',
+        body
+    });
+};
 
 
 // MOCKS

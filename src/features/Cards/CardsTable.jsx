@@ -8,7 +8,7 @@ class CardsTable extends React.Component {
 
    renderCards () {
       return this.props.cards.map((card) => (
-        <CardTableRow key={card._id} cardId={card._id}
+        <CardTableRow key={card._id.$oid} cardId={card._id}
           deckId={this.props.deckId} word={card.word}
           translation={card.translation} eraseable={this.props.eraseable}
           onDelete={this.props.onDelete} />
@@ -35,9 +35,10 @@ class CardsTable extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    cards: state.card.cards.filter(card => card.deckId === ownProps.deckId),
-});
+const mapStateToProps = (state, ownProps) =>{
+   return ({
+    cards: state.card.cards.filter(card => card.deckId === ownProps.deckId.$oid),
+})};
 
 const mapDispatchToProps = dispatch => ({
     onDelete: (cardId) => dispatch(deleteCard(cardId))
