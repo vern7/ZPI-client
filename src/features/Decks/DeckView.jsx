@@ -6,7 +6,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import Synchro from 'material-ui/svg-icons/action/cached';
 import FullStar from 'material-ui/svg-icons/toggle/star';
 import EmptyStar from 'material-ui/svg-icons/toggle/star-border';
-import {FlatButton} from 'material-ui';
+import {FlatButton, Snackbar} from 'material-ui';
 import Loader from '../../components/Loader';
 import {browserHistory} from 'react-router';
 
@@ -30,6 +30,14 @@ const buttonStyle = {
 
 
 export default class DeckView extends React.Component {
+
+    constructor () {
+        super();
+
+        this.state = {
+            synchroSnackbarOpen: false
+        };
+    }
 
 
     renderCardsTable = () => {
@@ -78,6 +86,15 @@ export default class DeckView extends React.Component {
 
     synchronize = () => {
         this.props.onSynchronize(this.props.cards);
+        this.setState({
+            synchroSnackbarOpen: true
+        });
+    }
+
+    handleRequestClose = () => {
+        this.setState({
+            synchroSnackbarOpen: false
+        });
     }
     
 
@@ -135,6 +152,13 @@ export default class DeckView extends React.Component {
                 <Row style={{marginTop: '20px'}}>
                     {this.renderCardsTable()}
                 </Row>
+
+                <Snackbar
+                    open={this.state.synchroSnackbarOpen}
+                    message="Your cards have been saved!"
+                    autoHideDuration={3000}
+                    onRequestClose={this.handleRequestClose}
+                />
 
             </div>
     );

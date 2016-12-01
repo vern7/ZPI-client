@@ -12,7 +12,7 @@ export const cards = (state = [], action) => {
             return state.filter(card => card._id != action.cardId);
         }
         case LOADED_CARDS: {
-            return _.union(state, action.cards);
+            return _.merge(state, action.cards);
         }
         default:
             return state;

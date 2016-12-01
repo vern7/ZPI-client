@@ -28,14 +28,14 @@ export const fetchCardsMock = (deckId) => _.filter(fakeCollection.cards, (card) 
 
 export const fetchCards = (deckId) => {
     return fetch(`https://zpi.herokuapp.com/api/decks/${deckId.$oid}`).then(res => res.json());
-} 
+};
 
 export const saveCards = (cards) => {
-    const cardsToSave = cards.map(card => ({deckId: card.deckId, word: card.word, translation: card.translation}));
+    const cardsToSave = JSON.stringify(cards.map(card => ({deckId: card.deckId, word: card.word, translation: card.translation})));
     return fetch('https://zpi.herokuapp.com/api/cards/create', {
         method: 'POST',
         credentials: 'include',
         body: cardsToSave
     })
-}
+};
 
