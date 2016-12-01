@@ -10,7 +10,7 @@ import Loader from '../../components/Loader';
 
 const headerStyle = {
     fontFamily: '"Dancing Script", Georgia, Times, serif',
-    textAlign: 'center',
+    textAlign: 'center',    
 };
 
 class LoginPage extends React.Component {

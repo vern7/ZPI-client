@@ -21,15 +21,6 @@ export default class SignupPage extends React.Component {
         };
     }
 
-    componentWillMount () {
-        document.body.style.backgroundImage = 'url(/images/background2.jpg)';
-        document.body.style.backgroundSize = '100%';
-        document.body.style.backgroundRepeat = 'no-repeat';
-    }
-    componentWillUnmount () {
-        document.body.style.backgroundImage = null;
-    }
-
     isValid () {
         let form = this.state;
         for (let prop in form) {
