@@ -2,11 +2,12 @@ import {delay, throttle, takeEvery} from 'redux-saga';
 import {call, put} from 'redux-saga/effects';
 import {
     fetchAllDecksApi,
+    fetchAllLanguages,
     createDeck as createDeckApi,
     addToFavorites as addToFavoritesApi,
     removeFromFavorites as removeFromFavoritesApi,
     deleteDeck as deleteDeckApi} from '../../api/decks';
-import {CREATE_DECK, LOAD_DECKS, DELETE_DECK, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, loadedDecks, createdDeck} from './actions';
+import {CREATE_DECK, LOAD_DECKS, LOAD_LANGUAGES, DELETE_DECK, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, loadedDecks, loadedLanguages, createdDeck} from './actions';
 
 // to delete
 export function* helloSaga () {
@@ -17,6 +18,11 @@ export function* helloSaga () {
 export function* loadDecks () {
     const decks = yield call(fetchAllDecksApi);
     yield put(loadedDecks(decks));
+}
+
+export function* loadLanguages () {
+    const languages = yield call(fetchAllLanguages);
+    yield put(loadedLanguages(languages));
 }
 
 export function* createDeck (action) {
@@ -47,6 +53,10 @@ export function* watchLoadDecks () {
     yield* throttle(2000, LOAD_DECKS, loadDecks);
 }
 
+export function* watchLoadLanguages () {
+    yield* throttle(2000, LOAD_LANGUAGES, loadLanguages);
+}
+
 export function* watchCreateDeck () {
     yield* takeEvery(CREATE_DECK, createDeck);
 }
@@ -63,5 +73,5 @@ export function* watchRemoveFromFavorites () {
     yield* takeEvery(REMOVE_FROM_FAVORITES, removeFromFavorites);
 }
 
-const deckSagas = [helloSaga, watchLoadDecks, watchCreateDeck, watchDeleteDeck, watchAddToFavorites, watchRemoveFromFavorites];
+const deckSagas = [helloSaga, watchLoadDecks, watchLoadLanguages, watchCreateDeck, watchDeleteDeck, watchAddToFavorites, watchRemoveFromFavorites];
 export default deckSagas;

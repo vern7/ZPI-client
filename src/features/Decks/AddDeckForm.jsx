@@ -1,7 +1,9 @@
 import React from 'react';
-import {TextField, RaisedButton, Slider} from 'material-ui';
+import {TextField, RaisedButton, Slider, SelectField, MenuItem} from 'material-ui';
 import {Row,Col} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 export default class AddDeckForm extends React.Component {
     constructor () {
@@ -12,6 +14,7 @@ export default class AddDeckForm extends React.Component {
             name: '',
             description: '',
             difficulty: '',
+            language: ''
         };
     }
 
@@ -31,7 +34,8 @@ export default class AddDeckForm extends React.Component {
         this.setState({
             name: '',
             description: '',
-            difficulty: ''
+            difficulty: '',
+            language: ''
         });
         browserHistory.push('/decks');
     }
@@ -41,8 +45,16 @@ export default class AddDeckForm extends React.Component {
         var object = {};
         object[field] = event.target.value;
         this.setState(object);
+
     }
 
+    setLanguage = (event, index, value) => this.setState({language: value});
+
+    renderLanguages() {
+      return this.props.languages.map((language) => (
+        <MenuItem key={language._id.$oid} value={language._id.$oid} primaryText={language.language} />
+      ));
+    }
 
     render () {
 
@@ -66,10 +78,19 @@ export default class AddDeckForm extends React.Component {
                         value={this.state.description}
                         onChange={this.setValue.bind(this, 'description')}
                     />
+                    <SelectField
+                        name="language"
+                        floatingLabelText="Language"
+                        value={this.state.language}
+                        onChange={this.setLanguage}
+                    >
+                      {this.renderLanguages()}
+                    </SelectField>
+
                     <div style={{marginTop: '30px', fontFamily: '"Roboto", sans-serif'}}>
-                        Difficulty 
+                        Difficulty
                     </div>
-                    <Slider 
+                    <Slider
                         name="difficulty"
                         step={0.2}
                         value={0.4}
