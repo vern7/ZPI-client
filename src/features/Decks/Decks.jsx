@@ -27,7 +27,8 @@ class Decks extends React.Component {
       return this.props.myDecks.map((deck) => (
           <Col key={deck._id.$oid} md={4}>
               <DeckCard key={deck._id} name={deck.name} creatorName={'Not Logged'} actionLabel={'Edit'}
-                description={deck.description} onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
+                description={deck.description} image={deck.image} language={deck.language.language} flag={deck.language.image} mark={deck.mark} votes={deck.votes}
+                onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
           </Col>
       ));
    }
@@ -39,7 +40,8 @@ class Decks extends React.Component {
      return decks.map((deck) => (
        <Col key={deck._id.$oid} md={4}>
          <DeckCard key={deck._id} name={deck.name} creatorName={'Not Logged'} actionLabel={'View'}
-           description={deck.description} onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
+           description={deck.description} image={deck.image} language={deck.language.language} flag={deck.language.image} mark={deck.mark} votes={deck.votes}
+           onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
        </Col>
      ));
    }
