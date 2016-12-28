@@ -8,6 +8,14 @@ export const login = (username, password) => {
         .then(res => res.json());
 };
 
+export const loginFacebook = (token) => {
+    return fetch(`//zpi.herokuapp.com/api/login/facebook?token=${token}`, {
+                method: 'GET',
+                credentials: 'include',
+            })
+        .then(res => res.json());
+};
+
 export const logout = () => {
     return fetch('https://zpi.herokuapp.com/logout');
 }
