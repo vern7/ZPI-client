@@ -25,8 +25,12 @@ const fakeCollection = {
 
 // API
 
-export const fetchAllDecksApi = () => {
-    return fetch(`https://zpi.herokuapp.com/api/decks`).then((res) => res.json());
+export const fetchAllDecksApi = (keyword) => {
+    var url = `https://zpi.herokuapp.com/api/decks`;
+    if (keyword) {
+        url += `?keyword=${keyword}`;
+    }
+    return fetch(url).then((res) => res.json());
 }
 
 export const createDeck = (deck) => {

@@ -1,4 +1,4 @@
-import {CREATED_DECK, DELETE_DECK, LOADED_DECKS, LOAD_DECKS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from './actions';
+import {CREATED_DECK, DELETE_DECK, LOADED_DECKS, SEARCHED_DECKS, LOAD_DECKS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from './actions';
 import _ from 'lodash';
 import {combineReducers} from 'redux';
 
@@ -14,6 +14,9 @@ export const decks = (state = [], action) => {
         }
         case LOADED_DECKS: {
             return _.merge(action.decks, state);
+        }
+        case SEARCHED_DECKS: {
+            return action.decks;
         }
         case ADD_TO_FAVORITES: {
             return state.map((deck) => {
@@ -42,6 +45,9 @@ export const isFetching = (state = true, action) => {
             return true;
         }
         case LOADED_DECKS: {
+            return false;
+        }
+        case SEARCHED_DECKS: {
             return false;
         }
         default:

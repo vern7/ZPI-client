@@ -7,6 +7,7 @@ import _ from 'lodash';
 import DeckCard from './DeckCard';
 import Loader from '../../components/Loader';
 // import Synchro from 'material-ui/svg-icons/action/cached';
+import Search from 'material-ui/svg-icons/action/search';
 
 class Decks extends React.Component {
 
@@ -14,10 +15,29 @@ class Decks extends React.Component {
         super();
         this.renderMyDecks = this.renderMyDecks.bind(this);
         this.buttonClicked = this.buttonClicked.bind(this);
+        this.state = {
+            keyword: ''
+        };
     }
 
     buttonClicked (deckId) {
         browserHistory.push(`/deck/${deckId}`);
+    }
+
+    searchDecksOnEnterPress = (event) => {
+       if(event.key == 'Enter'){
+         this.searchDecks();
+       }
+    }
+
+    searchDecks = () => {
+       this.props.loadDecks(this.state.keyword);
+    }
+
+    setValue (field, event) {
+        var object = {};
+        object[field] = event.target.value;
+        this.setState(object);
     }
 
    renderMyDecks () {
@@ -68,8 +88,12 @@ class Decks extends React.Component {
 
           <Col md={5}>
             <TextField
+              value={this.state.keyword}
+              onChange={this.setValue.bind(this, 'keyword')}
               hintText="Search"
+              onKeyPress={this.searchDecksOnEnterPress}
             />
+            <Search style={{verticalAlign: "middle"}} onClick={this.searchDecks}/>
           </Col>
         </Row>
         <Row>
@@ -92,18 +116,9 @@ class Decks extends React.Component {
         </Row>
         
         <Row>
-          <Col md={7}>
-            <h1 style={headerStyle}>
-              See also bundles created by others
-            </h1>
-          </Col>
-
-          <Col md={5}>
-            <TextField
-              hintText="Search"
-            />
-          </Col>
-          
+          <h1 style={headerStyle}>
+            See also bundles created by others
+          </h1>
         </Row>
         <Row>
           {this.renderOtherDecks(this.props.otherDecks)}
