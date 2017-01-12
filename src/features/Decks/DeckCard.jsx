@@ -15,7 +15,7 @@ const DeckCard = ({name, description, creatorName, image, language, flag, mark, 
       <CardMedia
         overlay={<CardTitle title={name} subtitle={description} />}
       >
-        <img src={`images/deckImages/1.jpg`} />
+        <img src={`images/deckImages/${image}.jpg`} />
 
       <img
         src={`images/flags/${flag}.png`}
