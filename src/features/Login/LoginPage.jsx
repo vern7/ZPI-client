@@ -72,8 +72,8 @@ class LoginPage extends React.Component {
 
 
         return (
-            <div style={{backgroundColor: 'white', textAlign: 'center'}}>
-                <Col mdOffset={4} md={4}>
+            <div style={{textAlign: 'center'}}>
+                <Col style={{backgroundColor: 'white'}} mdOffset={4} md={4}>
                     <div style={headerStyle}>
                         <h1>Log in</h1>
                     </div>

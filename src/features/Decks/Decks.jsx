@@ -68,7 +68,7 @@ class Decks extends React.Component {
 
   render() {
     const headerStyle = {
-      marginLeft: '50px',
+      marginLeft: '20px',
       fontSize: '30px',
       marginTop: '10px',
       marginBottom: '50px',
@@ -104,9 +104,11 @@ class Decks extends React.Component {
           <Divider />
         </Row>
         <Row>
-          <h1 style={headerStyle}>
-            My decks
-          </h1>
+          <Col md={12}>
+            <h1 style={headerStyle}>
+              My decks
+            </h1>
+          </Col>
         </Row>
         <Row>
           {this.renderMyDecks()}
@@ -116,9 +118,11 @@ class Decks extends React.Component {
         </Row>
         
         <Row>
-          <h1 style={headerStyle}>
-            See also bundles created by others
-          </h1>
+          <Col md={12}>
+            <h1 style={headerStyle}>
+              See also bundles created by others
+            </h1>
+          </Col>
         </Row>
         <Row>
           {this.renderOtherDecks(this.props.otherDecks)}
