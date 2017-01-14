@@ -1,7 +1,15 @@
 import React from 'react';
 import {TextField, RaisedButton, Slider} from 'material-ui';
+import {indigo500} from 'material-ui/styles/colors';
 import {Row,Col} from 'react-bootstrap';
+import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import {browserHistory} from 'react-router';
+
+const deckNameStyle = {
+    fontFamily: '"Roboto", sans-serif',
+    color: indigo500,
+    textAlign: 'center',
+};
 
 export default class AddDeckForm extends React.Component {
     constructor () {
@@ -48,6 +56,15 @@ export default class AddDeckForm extends React.Component {
 
         return (
             <Row>
+
+                <Row style={deckNameStyle}>
+                <ArrowLeft style={{float: "left", height: "80px", width: "32px"}} onClick={browserHistory.goBack}/>
+                <h1 >
+                    New deck
+                </h1>
+
+                </Row>
+
                 <Col mdOffset={3} md={6}>
                 <div>
                     <TextField
