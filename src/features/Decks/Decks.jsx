@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextField, Divider} from 'material-ui';
+import {TextField, SelectField, MenuItem, Divider} from 'material-ui';
 import {Row,Col} from 'react-bootstrap';
 import {indigo500} from 'material-ui/styles/colors';
 import {browserHistory} from 'react-router';
@@ -8,6 +8,8 @@ import DeckCard from './DeckCard';
 import Loader from '../../components/Loader';
 // import Synchro from 'material-ui/svg-icons/action/cached';
 import Search from 'material-ui/svg-icons/action/search';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 class Decks extends React.Component {
 
@@ -16,7 +18,8 @@ class Decks extends React.Component {
         this.renderMyDecks = this.renderMyDecks.bind(this);
         this.buttonClicked = this.buttonClicked.bind(this);
         this.state = {
-            keyword: ''
+            keyword: '',
+            filter: 0
         };
     }
 
@@ -31,7 +34,12 @@ class Decks extends React.Component {
     }
 
     searchDecks = () => {
-       this.props.loadDecks(this.state.keyword);
+       this.props.loadDecks(this.state.keyword, this.state.filter);
+    }
+
+    setFilter = (event, index, value) => {
+        this.setState({filter: value});
+        this.props.loadDecks(this.state.keyword, value);
     }
 
     setValue (field, event) {
@@ -80,14 +88,28 @@ class Decks extends React.Component {
     return (
       <div>
         <Row>
-          <Col md={7}>
+          <Col md={4}>
             <h1 style={headerStyle}>
               Favorites
             </h1>
           </Col>
 
-          <Col md={5}>
+          <Col md={4}>
+            <SelectField
+                style ={{width: '200px'}}
+                name="filter"
+                value={this.state.filter}
+                onChange={this.setFilter}
+            >
+               <MenuItem key={0} value={0} primaryText={"Najnowsze"} />
+               <MenuItem key={1} value={1} primaryText={"Najlepiej oceniane"} />
+               <MenuItem key={2} value={2} primaryText={"Najczęściej oceniane"} />
+            </SelectField>
+          </Col>
+
+          <Col md={4}>
             <TextField
+              style ={{width: '200px'}}
               value={this.state.keyword}
               onChange={this.setValue.bind(this, 'keyword')}
               hintText="Search"

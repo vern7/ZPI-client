@@ -24,7 +24,7 @@ export const createdDeck = (deck) => ({type: CREATED_DECK, deck});
 
 export const deleteDeck = (deckId) => ({type: DELETE_DECK, deckId});
 
-export const loadDecks = (keyword) => ({type: LOAD_DECKS, keyword});
+export const loadDecks = (keyword, filter) => ({type: LOAD_DECKS, keyword, filter});
 
 export const loadedDecks = (decks) => ({type: LOADED_DECKS, decks});
 

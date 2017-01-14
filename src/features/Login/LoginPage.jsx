@@ -78,6 +78,7 @@ class LoginPage extends React.Component {
                         <h1>Log in</h1>
                     </div>
                     <TextField
+                        style ={{width: '230px'}}
                         name="username"
                         floatingLabelText="Username"
                         value={this.state.username}
@@ -86,6 +87,7 @@ class LoginPage extends React.Component {
                     />
                     <br />
                     <TextField
+                        style ={{width: '230px'}}
                         name="password"
                         floatingLabelText="Password"
                         type="password"

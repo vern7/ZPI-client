@@ -15,8 +15,8 @@ export function* helloSaga () {
 }
 
 export function* loadDecks (action) {
-    const decks = yield call(fetchAllDecksApi, action.keyword);
-    if (action.keyword) {
+    const decks = yield call(fetchAllDecksApi, action.keyword, action.filter);
+    if (action.keyword || action.filter) {
         yield put(searchedDecks(decks));
     } else {
         yield put(loadedDecks(decks));
