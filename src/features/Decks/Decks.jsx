@@ -52,6 +52,11 @@ class Decks extends React.Component {
      if (this.props.isFetching) {
        return <Loader />;
      }
+     if (!decks.length) {
+        return <Col md={12} style={{opacity: "0.3", marginLeft: "30px"}}>
+            -no matching results-
+        </Col>
+     }
       return this.props.myDecks.map((deck) => (
           <Col key={deck._id.$oid} md={4}>
               <DeckCard key={deck._id} name={deck.name} creatorName={deck.owner} actionLabel={'Edit'}
@@ -64,6 +69,11 @@ class Decks extends React.Component {
    renderOtherDecks(decks) {
      if (this.props.isFetching) {
        return <Loader />;
+     }
+     if (!decks.length) {
+        return <Col md={12} style={{opacity: "0.3", marginLeft: "30px"}}>
+            -no matching results-
+        </Col>
      }
      return decks.map((deck) => (
        <Col key={deck._id.$oid} md={4}>
