@@ -52,7 +52,7 @@ class Decks extends React.Component {
      if (this.props.isFetching) {
        return <Loader />;
      }
-     if (!decks.length) {
+     if (!this.props.myDecks.length) {
         return <Col md={12} style={{opacity: "0.3", marginLeft: "30px"}}>
             -no matching results-
         </Col>
