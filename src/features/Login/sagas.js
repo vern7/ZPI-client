@@ -1,4 +1,4 @@
-import {LOG_IN, LOG_IN_FB, loggedIn, LOG_OUT, loggedOut} from './actions';
+import {LOG_IN, LOG_IN_FB, loggedIn, LOG_OUT, loggedOut, loginError} from './actions';
 import {call, put} from 'redux-saga/effects';
 import {takeEvery} from 'redux-saga';
 import {login as loginWithApi, loginFacebook as loginFacebookWithApi, logout as logoutWithApi} from '../../api/user';
@@ -6,16 +6,24 @@ import {browserHistory} from 'react-router';
 
 export function* logIn (action) {
     const {username, password} = action;
-    const {user} = yield call(loginWithApi, username, password);
-    yield put(loggedIn(user)); 
-    browserHistory.push('/decks');
+    try {
+        const {user} = yield call(loginWithApi, username, password);
+        yield put(loggedIn(user)); 
+        browserHistory.push('/decks');
+    } catch (error) {
+        yield put(loginError(error));
+    }
 }
 
 export function* logInFacebook (action) {
     const {token} = action;
-    const {user} = yield call(loginFacebookWithApi, token);
-    yield put(loggedIn(user));
-    browserHistory.push('/decks');
+    try {
+        const {user} = yield call(loginFacebookWithApi, token);
+        yield put(loggedIn(user));
+        browserHistory.push('/decks');
+    } catch (error) {
+        yield put(loginError(error));
+    }
 }
 
 export function* logOut () {

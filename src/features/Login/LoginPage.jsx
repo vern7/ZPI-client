@@ -1,6 +1,6 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
-import {TextField, RaisedButton, FlatButton} from 'material-ui';
+import {TextField, RaisedButton, FlatButton, Snackbar} from 'material-ui';
 import {yellow700} from 'material-ui/styles/colors';
 import {Col} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
@@ -20,9 +20,10 @@ class LoginPage extends React.Component {
         super();
         this.submitForm = this.submitForm.bind(this);
         this.loginRequest = this.loginRequest.bind(this);
+        this.openSnackbar = this.openSnackbar.bind(this);
         this.state = {
             username: '',
-            password: ''
+            password: '',
         };
     }
 
@@ -39,6 +40,10 @@ class LoginPage extends React.Component {
     // to extract from file
     loginRequest (username, password) {
         this.props.logIn(username, password);
+    }
+
+    openSnackbar () {
+        return this.props.error && this.state.username === '' && this.state.password === '';
     }
 
     submitForm (ev) {
@@ -73,12 +78,12 @@ class LoginPage extends React.Component {
 
         return (
             <div style={{textAlign: 'center'}}>
-                <Col style={{backgroundColor: 'white'}} mdOffset={4} md={4}>
+                <Col  mdOffset={4} md={4}>
                     <div style={headerStyle}>
                         <h1>Log in</h1>
                     </div>
                     <TextField
-                        style ={{width: '230px'}}
+                        style={{width: '230px'}}
                         name="username"
                         floatingLabelText="Username"
                         value={this.state.username}
@@ -87,7 +92,7 @@ class LoginPage extends React.Component {
                     />
                     <br />
                     <TextField
-                        style ={{width: '230px'}}
+                        style={{width: '230px'}}
                         name="password"
                         floatingLabelText="Password"
                         type="password"
@@ -113,10 +118,14 @@ class LoginPage extends React.Component {
                         <div style={{color: yellow700}}>
                         or
                         </div>
-                        <FlatButton label="Sign up" secondary onClick={() => browserHistory.push('welcome/signup')} />
+                        <FlatButton style={{width: '195px'}} label="Sign up" secondary onClick={() => browserHistory.push('welcome/signup')} />
                     </div>
                     {this.props.isLoggingIn ? <Loader /> : null}
                 </Col>
+                <Snackbar
+                    open={this.props.error && this.state.username === '' && this.state.password === ''}
+                    message="Invalid username or password"
+                />
             </div>
 
 
@@ -126,6 +135,7 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = state => ({
     isLoggingIn: state.user.isLoggingIn,
+    error: state.user.error
 });
 
 export default connect(mapStateToProps, {logIn, logInFacebook})(LoginPage);
