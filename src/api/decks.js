@@ -40,6 +40,10 @@ export const fetchAllDecksApi = (keyword, filter) => {
     return fetch(url).then((res) => res.json());
 }
 
+export const fetchAllLanguages = () => {
+    return fetch(`https://zpi.herokuapp.com/api/languages`).then((res) => res.json());
+}
+
 export const createDeck = (deck) => {
     deck = {...deck, difficulty: 4}; //TODO difficulty set in create deck form
     const body = JSON.stringify(deck);
