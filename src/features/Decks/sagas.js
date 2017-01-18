@@ -7,7 +7,8 @@ import {
     addToFavorites as addToFavoritesApi,
     removeFromFavorites as removeFromFavoritesApi,
     deleteDeck as deleteDeckApi} from '../../api/decks';
-import {CREATE_DECK, LOAD_DECKS, LOAD_LANGUAGES, DELETE_DECK, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, loadedDecks, loadedLanguages, createdDeck} from './actions';
+
+import {CREATE_DECK, LOAD_DECKS, LOAD_LANGUAGES, DELETE_DECK, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, loadedDecks, searchedDecks, loadedLanguages, createdDeck} from './actions';
 
 // to delete
 export function* helloSaga () {
@@ -15,9 +16,13 @@ export function* helloSaga () {
     console.log('hello saga');
 }
 
-export function* loadDecks () {
-    const decks = yield call(fetchAllDecksApi);
-    yield put(loadedDecks(decks));
+export function* loadDecks (action) {
+    const decks = yield call(fetchAllDecksApi, action.keyword, action.filter);
+    if (action.keyword || action.filter) {
+        yield put(searchedDecks(decks));
+    } else {
+        yield put(loadedDecks(decks));
+    }
 }
 
 export function* loadLanguages () {
@@ -28,7 +33,7 @@ export function* loadLanguages () {
 export function* createDeck (action) {
     const deckId = yield call(createDeckApi, action.deck);
     const newDeck = {
-        id: {
+        _id: {
             $oid: deckId
         },
         ...action.deck

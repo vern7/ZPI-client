@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextField, Divider} from 'material-ui';
+import {TextField, SelectField, MenuItem, Divider} from 'material-ui';
 import {Row,Col} from 'react-bootstrap';
 import {indigo500} from 'material-ui/styles/colors';
 import {browserHistory} from 'react-router';
@@ -7,6 +7,9 @@ import _ from 'lodash';
 import DeckCard from './DeckCard';
 import Loader from '../../components/Loader';
 // import Synchro from 'material-ui/svg-icons/action/cached';
+import Search from 'material-ui/svg-icons/action/search';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 class Decks extends React.Component {
 
@@ -14,20 +17,51 @@ class Decks extends React.Component {
         super();
         this.renderMyDecks = this.renderMyDecks.bind(this);
         this.buttonClicked = this.buttonClicked.bind(this);
+        this.state = {
+            keyword: '',
+            filter: 0
+        };
     }
 
     buttonClicked (deckId) {
         browserHistory.push(`/deck/${deckId}`);
     }
 
+    searchDecksOnEnterPress = (event) => {
+       if(event.key == 'Enter'){
+         this.searchDecks();
+       }
+    }
+
+    searchDecks = () => {
+       this.props.loadDecks(this.state.keyword, this.state.filter);
+    }
+
+    setFilter = (event, index, value) => {
+        this.setState({filter: value});
+        this.props.loadDecks(this.state.keyword, value);
+    }
+
+    setValue (field, event) {
+        var object = {};
+        object[field] = event.target.value;
+        this.setState(object);
+    }
+
    renderMyDecks () {
      if (this.props.isFetching) {
        return <Loader />;
      }
+     if (!this.props.myDecks.length) {
+        return <Col md={12} style={{opacity: "0.3", marginLeft: "30px"}}>
+            -no matching results-
+        </Col>
+     }
       return this.props.myDecks.map((deck) => (
           <Col key={deck._id.$oid} md={4}>
-              <DeckCard key={deck._id} name={deck.name} creatorName={'Not Logged'} actionLabel={'Edit'}
-                description={deck.description} onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
+              <DeckCard key={deck._id} name={deck.name} creatorName={deck.owner} actionLabel={'Edit'}
+                description={deck.description} image={deck.language.image} language={deck.language.language} flag={deck.language.image} mark={deck.mark} votes={deck.votes}
+                onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
           </Col>
       ));
    }
@@ -36,17 +70,23 @@ class Decks extends React.Component {
      if (this.props.isFetching) {
        return <Loader />;
      }
+     if (!decks.length) {
+        return <Col md={12} style={{opacity: "0.3", marginLeft: "30px"}}>
+            -no matching results-
+        </Col>
+     }
      return decks.map((deck) => (
        <Col key={deck._id.$oid} md={4}>
-         <DeckCard key={deck._id} name={deck.name} creatorName={'Not Logged'} actionLabel={'View'}
-           description={deck.description} onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
+         <DeckCard key={deck._id} name={deck.name} creatorName={deck.owner} actionLabel={'View'}
+           description={deck.description} image={deck.language.image} language={deck.language.language} flag={deck.language.image} mark={deck.mark} votes={deck.votes}
+           onAction={_.partial(this.buttonClicked, deck._id.$oid)} />
        </Col>
      ));
    }
 
   render() {
     const headerStyle = {
-      marginLeft: '50px',
+      marginLeft: '20px',
       fontSize: '30px',
       marginTop: '10px',
       marginBottom: '50px',
@@ -58,16 +98,34 @@ class Decks extends React.Component {
     return (
       <div>
         <Row>
-          <Col md={7}>
+          <Col md={4}>
             <h1 style={headerStyle}>
               Favorites
             </h1>
           </Col>
 
-          <Col md={5}>
+          <Col md={4}>
+            <SelectField
+                style ={{width: '200px'}}
+                name="filter"
+                value={this.state.filter}
+                onChange={this.setFilter}
+            >
+               <MenuItem key={0} value={0} primaryText={"Najnowsze"} />
+               <MenuItem key={1} value={1} primaryText={"Najlepiej oceniane"} />
+               <MenuItem key={2} value={2} primaryText={"Najczęściej oceniane"} />
+            </SelectField>
+          </Col>
+
+          <Col md={4}>
             <TextField
+              style ={{width: '200px'}}
+              value={this.state.keyword}
+              onChange={this.setValue.bind(this, 'keyword')}
               hintText="Search"
+              onKeyPress={this.searchDecksOnEnterPress}
             />
+            <Search style={{verticalAlign: "middle"}} onClick={this.searchDecks}/>
           </Col>
         </Row>
         <Row>
@@ -78,9 +136,11 @@ class Decks extends React.Component {
           <Divider />
         </Row>
         <Row>
-          <h1 style={headerStyle}>
-            My decks
-          </h1>
+          <Col md={12}>
+            <h1 style={headerStyle}>
+              My decks
+            </h1>
+          </Col>
         </Row>
         <Row>
           {this.renderMyDecks()}
@@ -90,18 +150,11 @@ class Decks extends React.Component {
         </Row>
         
         <Row>
-          <Col md={7}>
+          <Col md={12}>
             <h1 style={headerStyle}>
               See also bundles created by others
             </h1>
           </Col>
-
-          <Col md={5}>
-            <TextField
-              hintText="Search"
-            />
-          </Col>
-          
         </Row>
         <Row>
           {this.renderOtherDecks(this.props.otherDecks)}

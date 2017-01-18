@@ -25,8 +25,19 @@ const fakeCollection = {
 
 // API
 
-export const fetchAllDecksApi = () => {
-    return fetch(`https://zpi.herokuapp.com/api/decks`).then((res) => res.json());
+export const fetchAllDecksApi = (keyword, filter) => {
+    var url = `https://zpi.herokuapp.com/api/decks`;
+    if (keyword && filter) {
+        url += `?keyword=${keyword}&filter=${filter}`;
+    } else {
+        if (keyword) {
+            url += `?keyword=${keyword}`;
+        }
+        if (filter) {
+            url += `?filter=${filter}`;
+        }
+    }
+    return fetch(url).then((res) => res.json());
 }
 
 export const fetchAllLanguages = () => {

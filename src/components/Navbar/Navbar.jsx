@@ -97,7 +97,8 @@ export default class Navbar extends React.Component {
 
 
         const userNameStyle = {
-          textAlign: 'center'
+          textAlign: 'center',
+          marginLeft: '25px'
         };
 
         const buttonStyle = {
@@ -157,7 +158,7 @@ export default class Navbar extends React.Component {
                 onRequestChange={(open) => this.setState({open})}
               >
                 <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}><span style={draweTitleStyle}>Flash Learn</span></MenuItem>
-                <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}> <Avatar style={avatarStyle} size={200} src={'/images/defaultAvatar.jpg'} /> </MenuItem>
+                <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}> <Avatar style={avatarStyle} size={200} src={this.props.avatar === '' ? '/images/defaultAvatar.jpg' : this.props.avatar} /> </MenuItem>
                 <MenuItem style={userNameStyle} disabled={true}>{this.props.username}</MenuItem>
                 <Divider style={{marginBottom: '50px', marginTop:'10px'}}/>
                 <MenuItem onClick={this.goToHomePage} primaryText="My profile" leftIcon={<AccountBox />} />

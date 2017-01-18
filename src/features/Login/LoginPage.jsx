@@ -1,16 +1,18 @@
 import React from 'react';
+import FacebookLogin from 'react-facebook-login';
 import {TextField, RaisedButton, FlatButton} from 'material-ui';
 import {yellow700} from 'material-ui/styles/colors';
 import {Col} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {logIn} from './actions';
+import {logInFacebook} from './actions';
 import Loader from '../../components/Loader';
 
 
 const headerStyle = {
     fontFamily: '"Dancing Script", Georgia, Times, serif',
-    textAlign: 'center',    
+    textAlign: 'center',
 };
 
 class LoginPage extends React.Component {
@@ -62,16 +64,21 @@ class LoginPage extends React.Component {
         this.setState(object);
     }
 
+    responseFacebook = (response) => {
+      this.props.logInFacebook(response.accessToken);
+    }
+
     render () {
 
 
         return (
-            <div style={{backgroundColor: 'white'}}>
-                <Col mdOffset={4} md={4}>
+            <div style={{textAlign: 'center'}}>
+                <Col style={{backgroundColor: 'white'}} mdOffset={4} md={4}>
                     <div style={headerStyle}>
                         <h1>Log in</h1>
                     </div>
                     <TextField
+                        style ={{width: '230px'}}
                         name="username"
                         floatingLabelText="Username"
                         value={this.state.username}
@@ -80,6 +87,7 @@ class LoginPage extends React.Component {
                     />
                     <br />
                     <TextField
+                        style ={{width: '230px'}}
                         name="password"
                         floatingLabelText="Password"
                         type="password"
@@ -87,10 +95,21 @@ class LoginPage extends React.Component {
                         value={this.state.password}
                         onChange={this.setValue.bind(this, 'password')}
                     />
-                    <div style={{paddingTop: '30px'}}>
-                        <RaisedButton label="Log in" primary onClick={this.submitForm} />
+                    <div>
+                        <div style={{paddingTop: '30px'}}>
+                            <RaisedButton label="Log in" primary onClick={this.submitForm} style={{width: '180px'}}/>
+                        </div>
+                        <div style={{paddingTop: '10px'}}>
+                            <FacebookLogin
+                                buttonStyle={ { fontSize: 12, padding: '9px 14px' } }
+                                icon="fa-facebook"
+                                size="medium"
+                                appId="1690726437904491"
+                                fields="name,email,picture"
+                                callback={this.responseFacebook} />
+                        </div>
                     </div>
-                    <div style={{paddingTop: '20px', paddingLeft: '100px', fontFamily: '"Dancing Script", Georgia, Times, serif',}}>
+                    <div style={{paddingTop: '20px', fontFamily: '"Dancing Script", Georgia, Times, serif',}}>
                         <div style={{color: yellow700}}>
                         or
                         </div>
@@ -109,4 +128,4 @@ const mapStateToProps = state => ({
     isLoggingIn: state.user.isLoggingIn,
 });
 
-export default connect(mapStateToProps, {logIn})(LoginPage);
+export default connect(mapStateToProps, {logIn, logInFacebook})(LoginPage);
