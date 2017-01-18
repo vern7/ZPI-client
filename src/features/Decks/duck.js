@@ -1,4 +1,4 @@
-import {CREATED_DECK, DELETE_DECK, LOADED_DECKS, SEARCHED_DECKS, LOAD_DECKS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from './actions';
+import {CREATED_DECK, DELETE_DECK, LOADED_DECKS, LOAD_LANGUAGES, LOADED_LANGUGAGES, SEARCHED_DECKS, LOAD_DECKS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from './actions';
 import _ from 'lodash';
 import {combineReducers} from 'redux';
 
@@ -39,6 +39,16 @@ export const decks = (state = [], action) => {
     }
 };
 
+export const languages = (state = [], action) => {
+    switch (action.type) {
+        case LOADED_LANGUAGES: {
+            return _.merge(action.languages, state);
+        }
+        default:
+            return state;
+    }
+};
+
 export const isFetching = (state = true, action) => {
     switch (action.type) {
         case LOAD_DECKS: {
@@ -47,7 +57,14 @@ export const isFetching = (state = true, action) => {
         case LOADED_DECKS: {
             return false;
         }
+        case LOAD_LANGUAGES: {
+            return true;
+        }
+        case LOADED_LANGUAGES: {
+           return false;
+        }
         case SEARCHED_DECKS: {
+
             return false;
         }
         default:
@@ -57,5 +74,6 @@ export const isFetching = (state = true, action) => {
 
 export const decksReducer = combineReducers({
     decks,
+    languages,
     isFetching
 });
