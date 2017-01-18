@@ -7,7 +7,7 @@ import Synchro from 'material-ui/svg-icons/action/cached';
 import FullStar from 'material-ui/svg-icons/toggle/star';
 import EmptyStar from 'material-ui/svg-icons/toggle/star-border';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import {FlatButton, Snackbar} from 'material-ui';
+import {FlatButton, Snackbar, IconButton} from 'material-ui';
 import Loader from '../../components/Loader';
 import {browserHistory} from 'react-router';
 
@@ -103,7 +103,12 @@ export default class DeckView extends React.Component {
         return (
             <div>
                 <Row style={deckNameStyle}>
-                <ArrowLeft style={{float: "left", height: "80px", width: "32px"}} onClick={browserHistory.goBack}/>
+                <IconButton
+                    style={{float: "left"}}
+                    onClick={browserHistory.goBack}
+                >
+                    <ArrowLeft style={{height: "80px", width: "32px"}}/>
+                </IconButton>
                 <h1 >
                     {this.props.deck.name}
                 </h1>

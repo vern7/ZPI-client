@@ -8,8 +8,7 @@ import DeckCard from './DeckCard';
 import Loader from '../../components/Loader';
 // import Synchro from 'material-ui/svg-icons/action/cached';
 import Search from 'material-ui/svg-icons/action/search';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+
 
 class Decks extends React.Component {
 

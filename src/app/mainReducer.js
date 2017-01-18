@@ -9,6 +9,4 @@ const mainReducer = combineReducers({
     user: userReducer,
 });
 
-// export const getMyDecks = (state, )
-
 export default mainReducer;

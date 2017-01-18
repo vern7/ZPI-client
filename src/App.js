@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import Test from './features/Test/TestPage';
 import './App.css';
 import {Grid,Row,Col} from 'react-bootstrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TextField from 'material-ui/TextField';
-import {yellow700, deepOrange400, purple500, indigo500} from 'material-ui/styles/colors';
+import { purple500, indigo500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import Navbar from './components/Navbar';
-
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 const getAppBarColor = (notLogged) => notLogged ? '#F5F5F5' : 'white';  
 

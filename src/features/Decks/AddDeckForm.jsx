@@ -6,8 +6,6 @@ import {indigo500} from 'material-ui/styles/colors';
 import {Row,Col} from 'react-bootstrap';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import {browserHistory} from 'react-router';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 const deckNameStyle = {
     fontFamily: '"Roboto", sans-serif',
