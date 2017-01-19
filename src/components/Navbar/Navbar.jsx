@@ -61,6 +61,7 @@ export default class Navbar extends React.Component {
 
     handleLogout () {
         this.props.logOut();
+        localStorage.removeItem('user');
     }
 
     handleOpenMenu (event) {
@@ -134,7 +135,7 @@ export default class Navbar extends React.Component {
           
         }
 
-
+        debugger;
 
         return (
             
@@ -151,33 +152,38 @@ export default class Navbar extends React.Component {
 
             </AppBar >
             
-              <Drawer
-                docked={false}
-                width={300}
-                open={this.state.open}
-                onRequestChange={(open) => this.setState({open})}
-              >
-                <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}><span style={draweTitleStyle}>Flash Learn</span></MenuItem>
-                <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}> <Avatar style={avatarStyle} size={200} src={this.props.avatar === '' ? '/images/defaultAvatar.jpg' : this.props.avatar} /> </MenuItem>
-                <MenuItem style={userNameStyle} disabled={true}>{this.props.username}</MenuItem>
-                <Divider style={{marginBottom: '50px', marginTop:'10px'}}/>
-                <MenuItem onClick={this.goToHomePage} primaryText="My profile" leftIcon={<AccountBox />} />
-                <MenuItem onClick={this.goToAddDeck} primaryText="Add deck" leftIcon={<AddBundleIcon />} />
-                <MenuItem onClick={this.goToDecks} primaryText="Discover decks" leftIcon={<ViewBundlesIcon />} />
-                <MenuItem onClick={this.handleClickMenuItem} primaryText="Compose path" leftIcon={<Create />} href="/addPath"/>
-                <MenuItem onClick={this.handleClickMenuItem} primaryText="Explore paths" leftIcon={<Learn />} href="/paths"/>
+                {this.props.user.profile && this.props.user.profile.username ? 
+                        <Drawer
+                            docked={false}
+                            width={300}
+                            open={this.state.open}
+                            onRequestChange={(open) => this.setState({open})}
+                        >
+                            <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}><span style={draweTitleStyle}>Flash Learn</span></MenuItem>
+                            <MenuItem style={{textAlign: 'center', marginTop: '20px'}} disabled={true}> <Avatar style={avatarStyle} size={200} src={this.props.user.profile.avatar === '' ? '/images/defaultAvatar.jpg' : this.props.user.profile.avatar} /> </MenuItem>
+                            <MenuItem style={userNameStyle} disabled={true}>{this.props.user.profile.username}</MenuItem>
+                            <Divider style={{marginBottom: '50px', marginTop:'10px'}}/>
+                            <MenuItem onClick={this.goToHomePage} primaryText="My profile" leftIcon={<AccountBox />} />
+                            <MenuItem onClick={this.goToAddDeck} primaryText="Add deck" leftIcon={<AddBundleIcon />} />
+                            <MenuItem onClick={this.goToDecks} primaryText="Discover decks" leftIcon={<ViewBundlesIcon />} />
+                            <MenuItem onClick={this.handleClickMenuItem} primaryText="Compose path" leftIcon={<Create />} href="/addPath"/>
+                            <MenuItem onClick={this.handleClickMenuItem} primaryText="Explore paths" leftIcon={<Learn />} href="/paths"/>
 
 
-              </Drawer>
+                        </Drawer>
+                        :
+                        null
+                }
+              
 
 
 
             <Snackbar
-            open={this.state.snackbarOpen}
-            message="Ups! Funkcjonalność jeszcze nie dostępna."
-            autoHideDuration={3000}
-            onRequestClose={this.handleSnackbarClose}
-          />
+                open={this.state.snackbarOpen}
+                message="Ups! Funkcjonalność jeszcze nie dostępna."
+                autoHideDuration={3000}
+                onRequestClose={this.handleSnackbarClose}
+            />
         </div>
         );
       }

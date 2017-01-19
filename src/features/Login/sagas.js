@@ -27,9 +27,10 @@ export function* logInFacebook (action) {
 }
 
 export function* logOut () {
-    yield call(logoutWithApi);
-    yield put(loggedOut);
+    debugger;
+    yield put(loggedOut());
     browserHistory.push('/welcome/login');
+    yield call(logoutWithApi);
 }
 
 export function* watchLogIn () {

@@ -4,8 +4,7 @@ import {logOut} from '../../features/Login/actions';
 
 
 const mapStateToProps = state => ({
-    username: state.user.profile.username,
-    avatar: state.user.profile.avatar
+    user: state.user,
 })
 
 export default connect(mapStateToProps, {logOut})(Navbar);

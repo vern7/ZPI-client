@@ -7,7 +7,9 @@ import {AddDeck, DecksPage, DeckViewPage} from '../features/Decks';
 
 const getRoutes = store => {
     const userIsLogged = (nextState, replace) => {
-        const isLogged = store.getState().user.profile.username !== 'anonymous';
+        const temp = store.getState().user && store.getState().user.profile && store.getState().user.profile.username
+        debugger;
+        const isLogged = temp;
         
         if (!isLogged) replace('/welcome/login');
     }
